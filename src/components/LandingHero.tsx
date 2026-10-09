@@ -14,6 +14,7 @@ import { terminalTheme } from '@/lib/terminal-theme'
 import { detectPlatform, type PlatformInfo } from '@/lib/platform'
 import { requestSerialPort } from '@/lib/serial'
 import { findNvsRegion } from '@/lib/partitions'
+import BleConfigurator from './BleConfigurator'
 
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
@@ -593,6 +594,8 @@ export default function LandingHero() {
             />
           )}
         </Card>
+
+        <BleConfigurator available={platform.bluetooth} os={platform.os} />
 
         {isLogging && (
           <MacTerm

@@ -85,6 +85,44 @@
       "error": "Falhou"
     }
   },
+  "ble": {
+    "title": "Configurar via Bluetooth",
+    "description": "As alterações ficam preparadas no minerador e só passam a valer depois de reiniciá-lo.",
+    "setupModeHint": "Seu minerador precisa estar em modo de configuração — logo após a gravação, ou antes de entrar no Wi-Fi. Ele anuncia devagar, então aguarde alguns segundos.",
+    "connect": "Conectar via Bluetooth",
+    "disconnect": "Desconectar",
+    "save": "Salvar configurações",
+    "restart": "Reiniciar minerador",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "wifiSsid": "Rede Wi-Fi",
+    "wifiPassword": "Senha do Wi-Fi",
+    "poolUrl": "URL do pool",
+    "poolPort": "Porta do pool",
+    "poolUser": "Usuário do pool",
+    "poolPassword": "Senha do pool",
+    "unavailable": "Este navegador não consegue usar Bluetooth",
+    "linuxHint": "No Linux, o Chrome precisa de chrome://flags/#enable-experimental-web-platform-features ativado e de um reinício do navegador.",
+    "noRadio": "Nenhum adaptador Bluetooth encontrado",
+    "failed": "Falha na configuração por Bluetooth",
+    "connectFailed": "Não foi possível conectar ao minerador",
+    "saveFailed": "Não foi possível salvar as configurações",
+    "tooLong": "{{field}} é longo demais (no máximo {{max}} caracteres).",
+    "status": {
+      "READY": "Pronto",
+      "PENDING_APPLY": "Salvando...",
+      "APPLIED_RESTART_REQUIRED": "Salvo — reinicie para aplicar",
+      "RESTARTING": "Reiniciando...",
+      "ERROR_INVALID_SSID": "O nome da rede Wi-Fi não é válido",
+      "ERROR_INVALID_WIFI_PASSWORD": "A senha do Wi-Fi não é válida",
+      "ERROR_INVALID_POOL_URL": "A URL do pool não é válida",
+      "ERROR_INVALID_POOL_PORT": "A porta do pool não é válida",
+      "ERROR_INVALID_POOL_USER": "O usuário do pool não é válido",
+      "ERROR_INVALID_POOL_PASSWORD": "A senha do pool não é válida",
+      "ERROR_UNKNOWN_COMMAND": "O minerador não entendeu o comando",
+      "ERROR_PERSIST_FAILED": "O minerador não conseguiu salvar as configurações"
+    }
+  },
   "errors": {
     "browserCompatibility": {
       "title": "Este navegador não consegue gravar seu minerador",

@@ -85,6 +85,44 @@
       "error": "Eșuat"
     }
   },
+  "ble": {
+    "title": "Configurează prin Bluetooth",
+    "description": "Modificările sunt pregătite pe miner și devin active abia după repornire.",
+    "setupModeHint": "Minerul tău trebuie să fie în modul de configurare — imediat după programare, sau înainte să se conecteze la Wi-Fi. Transmite rar, așa că dă-i câteva secunde.",
+    "connect": "Conectează prin Bluetooth",
+    "disconnect": "Deconectează",
+    "save": "Salvează setările",
+    "restart": "Repornește minerul",
+    "show": "Arată",
+    "hide": "Ascunde",
+    "wifiSsid": "Rețea Wi-Fi",
+    "wifiPassword": "Parolă Wi-Fi",
+    "poolUrl": "URL-ul pool-ului",
+    "poolPort": "Portul pool-ului",
+    "poolUser": "Utilizator pool",
+    "poolPassword": "Parolă pool",
+    "unavailable": "Acest browser nu poate folosi Bluetooth",
+    "linuxHint": "Pe Linux, Chrome are nevoie de chrome://flags/#enable-experimental-web-platform-features activat și de o repornire a browserului.",
+    "noRadio": "Nu a fost găsit niciun adaptor Bluetooth",
+    "failed": "Configurarea prin Bluetooth a eșuat",
+    "connectFailed": "Nu s-a putut conecta la miner",
+    "saveFailed": "Nu s-au putut salva setările",
+    "tooLong": "{{field}} este prea lung (cel mult {{max}} caractere).",
+    "status": {
+      "READY": "Gata",
+      "PENDING_APPLY": "Se salvează...",
+      "APPLIED_RESTART_REQUIRED": "Salvat — repornește pentru a aplica",
+      "RESTARTING": "Repornește...",
+      "ERROR_INVALID_SSID": "Numele rețelei Wi-Fi nu este valid",
+      "ERROR_INVALID_WIFI_PASSWORD": "Parola Wi-Fi nu este validă",
+      "ERROR_INVALID_POOL_URL": "URL-ul pool-ului nu este valid",
+      "ERROR_INVALID_POOL_PORT": "Portul pool-ului nu este valid",
+      "ERROR_INVALID_POOL_USER": "Utilizatorul pool-ului nu este valid",
+      "ERROR_INVALID_POOL_PASSWORD": "Parola pool-ului nu este validă",
+      "ERROR_UNKNOWN_COMMAND": "Minerul nu a înțeles comanda",
+      "ERROR_PERSIST_FAILED": "Minerul nu a putut salva setările"
+    }
+  },
   "errors": {
     "browserCompatibility": {
       "title": "Acest browser nu poate programa minerul tău",

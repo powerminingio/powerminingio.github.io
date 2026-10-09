@@ -85,6 +85,44 @@
       "error": "Zlyhalo"
     }
   },
+  "ble": {
+    "title": "Nastavenie cez Bluetooth",
+    "description": "Zmeny sa na mineri iba pripravia a prejavia sa až po jeho reštarte.",
+    "setupModeHint": "Váš miner musí byť v režime nastavenia — hneď po aktualizácii, alebo kým sa nepripojil k Wi-Fi. Vysiela pomaly, dajte mu teda pár sekúnd.",
+    "connect": "Pripojiť cez Bluetooth",
+    "disconnect": "Odpojiť",
+    "save": "Uložiť nastavenia",
+    "restart": "Reštartovať miner",
+    "show": "Zobraziť",
+    "hide": "Skryť",
+    "wifiSsid": "Sieť Wi-Fi",
+    "wifiPassword": "Heslo Wi-Fi",
+    "poolUrl": "URL poolu",
+    "poolPort": "Port poolu",
+    "poolUser": "Používateľ poolu",
+    "poolPassword": "Heslo poolu",
+    "unavailable": "Tento prehliadač nedokáže použiť Bluetooth",
+    "linuxHint": "V Linuxe musí mať Chrome zapnuté chrome://flags/#enable-experimental-web-platform-features a následne sa musí reštartovať.",
+    "noRadio": "Nenašiel sa žiadny Bluetooth adaptér",
+    "failed": "Nastavenie cez Bluetooth zlyhalo",
+    "connectFailed": "Nepodarilo sa pripojiť k mineru",
+    "saveFailed": "Nepodarilo sa uložiť nastavenia",
+    "tooLong": "{{field}} je príliš dlhé (najviac {{max}} znakov).",
+    "status": {
+      "READY": "Pripravené",
+      "PENDING_APPLY": "Ukladá sa...",
+      "APPLIED_RESTART_REQUIRED": "Uložené — reštartujte pre použitie",
+      "RESTARTING": "Reštartuje sa...",
+      "ERROR_INVALID_SSID": "Názov siete Wi-Fi nie je platný",
+      "ERROR_INVALID_WIFI_PASSWORD": "Heslo Wi-Fi nie je platné",
+      "ERROR_INVALID_POOL_URL": "URL poolu nie je platná",
+      "ERROR_INVALID_POOL_PORT": "Port poolu nie je platný",
+      "ERROR_INVALID_POOL_USER": "Používateľ poolu nie je platný",
+      "ERROR_INVALID_POOL_PASSWORD": "Heslo poolu nie je platné",
+      "ERROR_UNKNOWN_COMMAND": "Miner nerozpoznal príkaz",
+      "ERROR_PERSIST_FAILED": "Mineru sa nepodarilo uložiť nastavenia"
+    }
+  },
   "errors": {
     "browserCompatibility": {
       "title": "Tento prehliadač nedokáže aktualizovať Váš miner",

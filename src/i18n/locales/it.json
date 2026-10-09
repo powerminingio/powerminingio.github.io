@@ -85,6 +85,44 @@
             "error": "Fallito"
         }
     },
+    "ble": {
+        "title": "Configura via Bluetooth",
+        "description": "Le modifiche vengono preparate sul miner e diventano attive solo dopo il riavvio.",
+        "setupModeHint": "Il miner deve essere in modalità configurazione — subito dopo il flashing, o prima che si colleghi al Wi-Fi. Trasmette lentamente, quindi dagli qualche secondo.",
+        "connect": "Connetti via Bluetooth",
+        "disconnect": "Disconnetti",
+        "save": "Salva impostazioni",
+        "restart": "Riavvia il miner",
+        "show": "Mostra",
+        "hide": "Nascondi",
+        "wifiSsid": "Rete Wi-Fi",
+        "wifiPassword": "Password Wi-Fi",
+        "poolUrl": "URL del pool",
+        "poolPort": "Porta del pool",
+        "poolUser": "Utente del pool",
+        "poolPassword": "Password del pool",
+        "unavailable": "Questo browser non può usare il Bluetooth",
+        "linuxHint": "Su Linux, Chrome richiede chrome://flags/#enable-experimental-web-platform-features attivo e un riavvio del browser.",
+        "noRadio": "Nessun adattatore Bluetooth trovato",
+        "failed": "Configurazione Bluetooth fallita",
+        "connectFailed": "Impossibile connettersi al miner",
+        "saveFailed": "Impossibile salvare le impostazioni",
+        "tooLong": "{{field}} è troppo lungo (massimo {{max}} caratteri).",
+        "status": {
+            "READY": "Pronto",
+            "PENDING_APPLY": "Salvataggio...",
+            "APPLIED_RESTART_REQUIRED": "Salvato — riavvia per applicare",
+            "RESTARTING": "Riavvio...",
+            "ERROR_INVALID_SSID": "Il nome della rete Wi-Fi non è valido",
+            "ERROR_INVALID_WIFI_PASSWORD": "La password Wi-Fi non è valida",
+            "ERROR_INVALID_POOL_URL": "L'URL del pool non è valido",
+            "ERROR_INVALID_POOL_PORT": "La porta del pool non è valida",
+            "ERROR_INVALID_POOL_USER": "L'utente del pool non è valido",
+            "ERROR_INVALID_POOL_PASSWORD": "La password del pool non è valida",
+            "ERROR_UNKNOWN_COMMAND": "Il miner non ha riconosciuto il comando",
+            "ERROR_PERSIST_FAILED": "Il miner non è riuscito a salvare le impostazioni"
+        }
+    },
     "errors": {
         "browserCompatibility": {
             "title": "Questo browser non può flashare il tuo miner",

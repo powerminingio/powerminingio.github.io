@@ -85,6 +85,44 @@
       "error": "Başarısız"
     }
   },
+  "ble": {
+    "title": "Bluetooth ile yapılandır",
+    "description": "Değişiklikler cihazda hazırlanır ve ancak yeniden başlattıktan sonra geçerli olur.",
+    "setupModeHint": "Madenci cihazınız kurulum modunda olmalı — formatlamadan hemen sonra ya da Wi-Fi ağına bağlanmadan önce. Yavaş yayın yapar, birkaç saniye bekleyin.",
+    "connect": "Bluetooth ile bağlan",
+    "disconnect": "Bağlantıyı kes",
+    "save": "Ayarları kaydet",
+    "restart": "Cihazı yeniden başlat",
+    "show": "Göster",
+    "hide": "Gizle",
+    "wifiSsid": "Wi-Fi ağı",
+    "wifiPassword": "Wi-Fi parolası",
+    "poolUrl": "Havuz adresi",
+    "poolPort": "Havuz portu",
+    "poolUser": "Havuz kullanıcısı",
+    "poolPassword": "Havuz parolası",
+    "unavailable": "Bu tarayıcı Bluetooth kullanamıyor",
+    "linuxHint": "Linux'ta Chrome için chrome://flags/#enable-experimental-web-platform-features açılmalı ve tarayıcı yeniden başlatılmalı.",
+    "noRadio": "Bluetooth adaptörü bulunamadı",
+    "failed": "Bluetooth ile yapılandırma başarısız oldu",
+    "connectFailed": "Madenci cihazına bağlanılamadı",
+    "saveFailed": "Ayarlar kaydedilemedi",
+    "tooLong": "{{field}} çok uzun (en fazla {{max}} karakter).",
+    "status": {
+      "READY": "Hazır",
+      "PENDING_APPLY": "Kaydediliyor...",
+      "APPLIED_RESTART_REQUIRED": "Kaydedildi — uygulamak için yeniden başlatın",
+      "RESTARTING": "Yeniden başlatılıyor...",
+      "ERROR_INVALID_SSID": "Wi-Fi ağ adı geçerli değil",
+      "ERROR_INVALID_WIFI_PASSWORD": "Wi-Fi parolası geçerli değil",
+      "ERROR_INVALID_POOL_URL": "Havuz adresi geçerli değil",
+      "ERROR_INVALID_POOL_PORT": "Havuz portu geçerli değil",
+      "ERROR_INVALID_POOL_USER": "Havuz kullanıcısı geçerli değil",
+      "ERROR_INVALID_POOL_PASSWORD": "Havuz parolası geçerli değil",
+      "ERROR_UNKNOWN_COMMAND": "Madenci cihazı komutu anlamadı",
+      "ERROR_PERSIST_FAILED": "Madenci cihazı ayarları kaydedemedi"
+    }
+  },
   "errors": {
     "browserCompatibility": {
       "title": "Bu tarayıcı madenci cihazınızı formatlayamıyor",

@@ -1,4 +1,4 @@
-{
+  {
     "common": {
       "language": "Language",
       "close": "Close"
@@ -83,6 +83,44 @@
         "flashing": "Flashing",
         "done": "Done",
         "error": "Failed"
+      }
+    },
+    "ble": {
+      "title": "Configure over Bluetooth",
+      "description": "Changes are staged on the miner and only take effect after you restart it.",
+      "setupModeHint": "Your miner has to be in setup mode — right after flashing, or before it has joined Wi-Fi. It advertises slowly, so give it a few seconds to appear.",
+      "connect": "Connect over Bluetooth",
+      "disconnect": "Disconnect",
+      "save": "Save settings",
+      "restart": "Restart miner",
+      "show": "Show",
+      "hide": "Hide",
+      "wifiSsid": "Wi-Fi network",
+      "wifiPassword": "Wi-Fi password",
+      "poolUrl": "Pool URL",
+      "poolPort": "Pool port",
+      "poolUser": "Pool user",
+      "poolPassword": "Pool password",
+      "unavailable": "This browser can't use Bluetooth",
+      "linuxHint": "On Linux, Chrome needs chrome://flags/#enable-experimental-web-platform-features turned on, then a restart.",
+      "noRadio": "No Bluetooth adapter was found",
+      "failed": "Bluetooth setup failed",
+      "connectFailed": "Could not connect to the miner",
+      "saveFailed": "Could not save the settings",
+      "tooLong": "{{field}} is too long (at most {{max}} characters).",
+      "status": {
+        "READY": "Ready",
+        "PENDING_APPLY": "Saving...",
+        "APPLIED_RESTART_REQUIRED": "Saved — restart to apply",
+        "RESTARTING": "Restarting...",
+        "ERROR_INVALID_SSID": "The Wi-Fi network name is not valid",
+        "ERROR_INVALID_WIFI_PASSWORD": "The Wi-Fi password is not valid",
+        "ERROR_INVALID_POOL_URL": "The pool URL is not valid",
+        "ERROR_INVALID_POOL_PORT": "The pool port is not valid",
+        "ERROR_INVALID_POOL_USER": "The pool user is not valid",
+        "ERROR_INVALID_POOL_PASSWORD": "The pool password is not valid",
+        "ERROR_UNKNOWN_COMMAND": "The miner did not understand the command",
+        "ERROR_PERSIST_FAILED": "The miner could not save the settings"
       }
     },
     "errors": {

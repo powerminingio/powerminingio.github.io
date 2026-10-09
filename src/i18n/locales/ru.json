@@ -85,6 +85,44 @@
       "error": "Ошибка"
     }
   },
+  "ble": {
+    "title": "Настройка по Bluetooth",
+    "description": "Изменения сохраняются на майнере и вступают в силу только после перезапуска.",
+    "setupModeHint": "Майнер должен быть в режиме настройки — сразу после прошивки или до подключения к Wi-Fi. Он отвечает медленно, подожди несколько секунд.",
+    "connect": "Подключиться по Bluetooth",
+    "disconnect": "Отключиться",
+    "save": "Сохранить настройки",
+    "restart": "Перезапустить майнер",
+    "show": "Показать",
+    "hide": "Скрыть",
+    "wifiSsid": "Сеть Wi-Fi",
+    "wifiPassword": "Пароль Wi-Fi",
+    "poolUrl": "Адрес пула",
+    "poolPort": "Порт пула",
+    "poolUser": "Пользователь пула",
+    "poolPassword": "Пароль пула",
+    "unavailable": "Этот браузер не может использовать Bluetooth",
+    "linuxHint": "В Linux в Chrome нужно включить chrome://flags/#enable-experimental-web-platform-features и перезапустить браузер.",
+    "noRadio": "Bluetooth-адаптер не найден",
+    "failed": "Не удалось настроить по Bluetooth",
+    "connectFailed": "Не удалось подключиться к майнеру",
+    "saveFailed": "Не удалось сохранить настройки",
+    "tooLong": "{{field}} — слишком длинное значение (не больше {{max}} символов).",
+    "status": {
+      "READY": "Готово",
+      "PENDING_APPLY": "Сохранение...",
+      "APPLIED_RESTART_REQUIRED": "Сохранено — перезапусти, чтобы применить",
+      "RESTARTING": "Перезапуск...",
+      "ERROR_INVALID_SSID": "Неверное имя сети Wi-Fi",
+      "ERROR_INVALID_WIFI_PASSWORD": "Неверный пароль Wi-Fi",
+      "ERROR_INVALID_POOL_URL": "Неверный адрес пула",
+      "ERROR_INVALID_POOL_PORT": "Неверный порт пула",
+      "ERROR_INVALID_POOL_USER": "Неверный пользователь пула",
+      "ERROR_INVALID_POOL_PASSWORD": "Неверный пароль пула",
+      "ERROR_UNKNOWN_COMMAND": "Майнер не понял команду",
+      "ERROR_PERSIST_FAILED": "Майнер не смог сохранить настройки"
+    }
+  },
   "errors": {
     "browserCompatibility": {
       "title": "Этот браузер не может прошить твой майнер",

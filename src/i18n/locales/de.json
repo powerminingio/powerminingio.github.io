@@ -85,6 +85,44 @@
         "error": "Fehlgeschlagen"
       }
     },
+    "ble": {
+      "title": "Über Bluetooth einrichten",
+      "description": "Änderungen werden auf dem Miner vorgemerkt und erst nach einem Neustart aktiv.",
+      "setupModeHint": "Dein Miner muss im Einrichtungsmodus sein — direkt nach dem Flashen oder bevor er sich mit dem WLAN verbunden hat. Er sendet langsam, gib ihm also ein paar Sekunden.",
+      "connect": "Über Bluetooth verbinden",
+      "disconnect": "Trennen",
+      "save": "Einstellungen speichern",
+      "restart": "Miner neu starten",
+      "show": "Anzeigen",
+      "hide": "Verbergen",
+      "wifiSsid": "WLAN-Netzwerk",
+      "wifiPassword": "WLAN-Passwort",
+      "poolUrl": "Pool-URL",
+      "poolPort": "Pool-Port",
+      "poolUser": "Pool-Benutzer",
+      "poolPassword": "Pool-Passwort",
+      "unavailable": "Dieser Browser kann kein Bluetooth verwenden",
+      "linuxHint": "Unter Linux muss in Chrome chrome://flags/#enable-experimental-web-platform-features aktiviert und der Browser neu gestartet werden.",
+      "noRadio": "Kein Bluetooth-Adapter gefunden",
+      "failed": "Bluetooth-Einrichtung fehlgeschlagen",
+      "connectFailed": "Verbindung zum Miner fehlgeschlagen",
+      "saveFailed": "Einstellungen konnten nicht gespeichert werden",
+      "tooLong": "{{field}} ist zu lang (höchstens {{max}} Zeichen).",
+      "status": {
+        "READY": "Bereit",
+        "PENDING_APPLY": "Speichere...",
+        "APPLIED_RESTART_REQUIRED": "Gespeichert — zum Übernehmen neu starten",
+        "RESTARTING": "Startet neu...",
+        "ERROR_INVALID_SSID": "Der WLAN-Name ist ungültig",
+        "ERROR_INVALID_WIFI_PASSWORD": "Das WLAN-Passwort ist ungültig",
+        "ERROR_INVALID_POOL_URL": "Die Pool-URL ist ungültig",
+        "ERROR_INVALID_POOL_PORT": "Der Pool-Port ist ungültig",
+        "ERROR_INVALID_POOL_USER": "Der Pool-Benutzer ist ungültig",
+        "ERROR_INVALID_POOL_PASSWORD": "Das Pool-Passwort ist ungültig",
+        "ERROR_UNKNOWN_COMMAND": "Der Miner hat den Befehl nicht verstanden",
+        "ERROR_PERSIST_FAILED": "Der Miner konnte die Einstellungen nicht speichern"
+      }
+    },
     "errors": {
       "browserCompatibility": {
         "title": "Dieser Browser kann deinen Miner nicht flashen",

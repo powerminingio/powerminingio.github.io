@@ -85,6 +85,44 @@
             "error": "Qagh"
         }
     },
+    "ble": {
+        "title": "Bluetooth lo'taHvIS jan yIchoH",
+        "description": "jan chenmoHlu'; taghqa'DI' jan Qap chu'.",
+        "setupModeHint": "jan chenmoH mIwDaq ghaHnIS — ghItlhqa'pu'DI', pagh Wi-Fi chelpa'. QIt jatlh, vaj yIloS.",
+        "connect": "Bluetooth yIchel",
+        "disconnect": "yIteq",
+        "save": "nugh rI' yIchoq",
+        "restart": "jan yItaghqa'",
+        "show": "yI'ang",
+        "hide": "yISo'",
+        "wifiSsid": "Wi-Fi pong",
+        "wifiPassword": "Wi-Fi mu'",
+        "poolUrl": "pool Daq",
+        "poolPort": "pool lojmIt",
+        "poolUser": "pool lo'wI'",
+        "poolPassword": "pool mu'",
+        "unavailable": "Bluetooth lo'laHbe' browservam",
+        "linuxHint": "LinuxDaq Chrome: chrome://flags/#enable-experimental-web-platform-features yIchu' 'ej yItaghqa'.",
+        "noRadio": "Bluetooth jan Sambe'",
+        "failed": "Bluetooth mIw Qapbe'",
+        "connectFailed": "jan chel Qapbe'",
+        "saveFailed": "nugh rI' choq Qapbe'",
+        "tooLong": "{{field}} tIq. {{max}} mI' potlh.",
+        "status": {
+            "READY": "ghuHpu'",
+            "PENDING_APPLY": "choq...",
+            "APPLIED_RESTART_REQUIRED": "choqpu' — yItaghqa'",
+            "RESTARTING": "taghqa'...",
+            "ERROR_INVALID_SSID": "Wi-Fi pong ngeb",
+            "ERROR_INVALID_WIFI_PASSWORD": "Wi-Fi mu' ngeb",
+            "ERROR_INVALID_POOL_URL": "pool Daq ngeb",
+            "ERROR_INVALID_POOL_PORT": "pool lojmIt ngeb",
+            "ERROR_INVALID_POOL_USER": "pool lo'wI' ngeb",
+            "ERROR_INVALID_POOL_PASSWORD": "pool mu' ngeb",
+            "ERROR_UNKNOWN_COMMAND": "ra'wI' yajbe' jan",
+            "ERROR_PERSIST_FAILED": "nugh rI' choqlaHbe' jan"
+        }
+    },
     "errors": {
         "browserCompatibility": {
             "title": "jan vItlhqa'laHbe' browservam",

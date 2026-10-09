@@ -30,6 +30,13 @@ export interface PlatformInfo {
   osLabel: string
   serial: SerialSupport
   blocker: Blocker
+  /**
+   * Whether this browser implements Web Bluetooth, for the BLE configurator.
+   * Deliberately separate from `blocker`: Chrome on Linux can flash but has no
+   * Web Bluetooth without an experimental flag, so folding the two together
+   * would wrongly block flashing there.
+   */
+  bluetooth: boolean
 }
 
 /** `navigator.userAgentData` is Chromium-only and absent from the DOM lib. */
@@ -102,6 +109,10 @@ function hasWebUSB(): boolean {
   return 'usb' in navigator
 }
 
+function hasWebBluetooth(): boolean {
+  return 'bluetooth' in navigator
+}
+
 function detectSerial(os: OS, chromium: boolean): SerialSupport {
   if (!chromium) return null
   // WebKit powers every browser on iOS and implements neither API.
@@ -131,5 +142,5 @@ export function detectPlatform(): PlatformInfo {
         ? 'mobile'
         : 'engine'
 
-  return { os, osLabel: OS_LABELS[os], serial, blocker }
+  return { os, osLabel: OS_LABELS[os], serial, blocker, bluetooth: hasWebBluetooth() }
 }
