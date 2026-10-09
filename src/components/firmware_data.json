@@ -1,127 +1,41 @@
 {
-    "devices": [
+  "devices": [
+    {
+      "name": "Aura",
+      "boards": [
         {
-            "name": "Max",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "102"
-                }
-            ]
+          "name": "Proto (2 x Teraflux)",
+          "supported_firmware": [
+            {
+              "version": "f9560f1",
+              "path": "firmware/aura_proto.bin"
+            }
+          ]
         },
         {
-            "name": "Ultra",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "201"
-                },
-                {
-                    "name": "202"
-                },
-                {
-                    "name": "203"
-                },
-                {
-                    "name": "204"
-                },
-                {
-                    "name": "205"
-                },
-                {
-                    "name": "207"
-                }
-            ]
-        },
-        {
-            "name": "Supra",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "401"
-                },
-                {
-                    "name": "402"
-                },
-                {
-                    "name": "403"
-                }
-            ]
-        },
-        {
-            "name": "Gamma",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "601"
-                },
-                {
-                    "name": "602"
-                }
-            ]
-        },
-        {
-            "name": "UltraHex",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "302"
-                },
-                {
-                    "name": "303"
-                }
-            ]
-        },
-        {
-            "name": "SupraHex",
-            "repository": "https://github.com/bitaxeorg/ESP-Miner",
-            "boards": [
-                {
-                    "name": "701"
-                },
-                {
-                    "name": "702"
-                }
-            ]
-        },
-        {
-            "name": "Aura",
-            "repository": "",
-            "boards": [
-                {
-                    "name": " Proto (2 x Teraflux)",
-                    "supported_firmware": [
-                        {
-                            "version": "f9560f1",
-                            "path": "firmware/aura_proto.bin"
-                        }
-                    ]
-                },
-                {
-                    "name": " Duo (2 x Teraflux)",
-                    "supported_firmware": [
-                        {
-                            "version": "db288f0",
-                            "path": "firmware/aura_duo.bin"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "NerdQAxe",
-            "repository": "",
-            "boards": [
-                {
-                    "name": " ++",
-                    "supported_firmware": [
-                        {
-                            "version": "587af2b",
-                            "path": "firmware/nerdqaxe++.bin"
-                        }
-                    ]
-                }
-            ]
+          "name": "Duo (2 x Teraflux)",
+          "supported_firmware": [
+            {
+              "version": "db288f0",
+              "path": "firmware/aura_duo.bin"
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "name": "NerdQAxe",
+      "boards": [
+        {
+          "name": "++",
+          "supported_firmware": [
+            {
+              "version": "587af2b",
+              "path": "firmware/nerdqaxe++.bin"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -20,7 +20,6 @@
       "deviceLabel": "Device",
       "boardLabel": "Board version",
       "firmwareLabel": "Firmware version",
-      "loadingFirmware": "Loading firmware versions...",
       "startFlashing": "Start Flashing",
       "flashing": "Flashing...",
       "startLogging": "Start Logging",
