@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
-import { asset } from '@/lib/utils'
 
 interface HeaderProps {
   onOpenPanel: () => void;
@@ -25,7 +24,7 @@ export default function Header({ onOpenPanel, isPanelOpen = false }: HeaderProps
         <Link href="/" aria-label="Power Mining — Home" className="inline-flex shrink-0 items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={asset('/pictures/pm-logo.svg')}
+            src="/pictures/pm-logo.svg"
             alt="Power Mining"
             className="h-[22px] w-auto sm:h-6"
           />

@@ -4,6 +4,12 @@
 
 The Bitaxe Web Flasher is the open source tool that provides you an easy solution to flash a factory file to your device.
 
+**Live at <https://powerminingio.github.io/>.**
+
+The repository is named `powerminingio.github.io` because that is what GitHub requires
+to serve an organisation's Pages site from the root rather than a `/repo-name/` subpath.
+The name describes where the site is published, not what the project is.
+
 ## Flashing process
 
 Simply connect your device, select the model and board version and click on flash.

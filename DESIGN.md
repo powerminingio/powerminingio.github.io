@@ -48,7 +48,11 @@ sixteen colours and Glass only defines some of them.
 
 ## Brand assets
 
-`public/pictures/` — `pm-logo.svg` (the wordmark, two-tone, used in the header at 24px),
-`pm-favicon.png`, `pm-mark.png` (the bolt-and-P mark, Apple touch icon). Production
-serves from a GitHub Pages subpath, so reference them through `asset()` in
-`src/lib/utils.ts`, never as a bare `/pictures/…` path.
+The wordmark is `public/pictures/pm-logo.svg` — two-tone, used in the header at 24px.
+The site is served from a domain root, so reference it as a plain root-relative
+`/pictures/pm-logo.svg`; there is no basePath to prefix.
+
+The icons are `src/app/icon.png` (favicon) and `src/app/apple-icon.png` (the bolt-and-P
+mark). Those filenames are a Next convention, not an arbitrary choice: Next finds them,
+emits the `<link>` tags, and prefixes the URLs to match whatever the build is configured
+for. Leave them there rather than moving them into `public/` and hand-writing paths.

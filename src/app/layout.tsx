@@ -1,26 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { I18nProvider } from '../components/I18nProvider'
-import { asset } from '@/lib/utils'
 
+// Icons come from src/app/icon.png and src/app/apple-icon.png by Next's file
+// convention, so their URLs track the build's basePath on their own.
 export const metadata: Metadata = {
   title: 'Bitaxe Web Flasher — Power Mining',
   description: 'Flash your Bitaxe directly from the web',
-  icons: {
-    icon: [
-      {
-        url: asset('/pictures/pm-favicon.png'),
-        sizes: 'any',
-        type: 'image/png',
-      }
-    ],
-    apple: [
-      {
-        url: asset('/pictures/pm-mark.png'),
-        type: 'image/png',
-      }
-    ]
-  }
 }
 
 export default function RootLayout({
