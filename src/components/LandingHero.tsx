@@ -72,11 +72,7 @@ const fetchSHA256Hash = async (repositoryUrl: string, versionTag: string, binary
   }
 };
 
-interface LandingHeroProps {
-  onOpenPanel?: () => void;
-}
-
-export default function LandingHero({ onOpenPanel }: LandingHeroProps) {
+export default function LandingHero() {
   const { t } = useTranslation();
   const [selectedDevice, setSelectedDevice] = useState<string>('')
   const [selectedBoardVersion, setSelectedBoardVersion] = useState('')
