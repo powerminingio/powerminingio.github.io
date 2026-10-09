@@ -1,9 +1,7 @@
 {
   "common": {
-    "theme": "Tema",
     "language": "Língua",
-    "dark": "Escuro",
-    "light": "Claro"
+    "close": "Fechar"
   },
   "header": {
     "home": "Home",
@@ -19,6 +17,9 @@
     "selectDevice": "Selecionar dispositivo",
     "selectBoard": "Selecionar versão da placa",
     "selectFirmware": "Selecionar versão do firmware",
+    "deviceLabel": "Dispositivo",
+    "boardLabel": "Versão da placa",
+    "firmwareLabel": "Versão do firmware",
     "startFlashing": "Iniciar Gravação",
     "flashing": "Gravando...",
     "startLogging": "Iniciar Log",
@@ -62,16 +63,35 @@
     "selectBoth": "Por favor, selecione o modelo do dispositivo e a versão da placa",
     "connectFirst": "Por favor, conecte-se a um dispositivo primeiro",
     "preparing": "Preparando para gravar...",
-    "downloadFirmware": "Downloading firmware...",
+    "downloadFirmware": "Baixando firmware...",
     "flashing": "Gravando: {{percent}}% concluído",
     "completed": "Gravação concluída. Reiniciando o dispositivo...",
     "success": "Gravação concluída com sucesso! O dispositivo foi reiniciado.",
-    "loggingStarted": "Log serial iniciado..."
+    "loggingStarted": "Log serial iniciado...",
+    "connectionFailed": "Não foi possível conectar ao dispositivo",
+    "disconnectError": "Não foi possível desconectar corretamente",
+    "loggingError": "Falha no log serial",
+    "flashingFailed": "Falha na gravação",
+    "tryAgain": "Por favor, tente novamente.",
+    "phase": {
+      "idle": "Pronto",
+      "connecting": "Conectando",
+      "connected": "Conectado",
+      "preparing": "Preparando",
+      "downloading": "Baixando",
+      "flashing": "Gravando",
+      "done": "Concluído",
+      "error": "Falhou"
+    }
   },
   "errors": {
     "browserCompatibility": {
-      "title": "Erro de Compatibilidade do Navegador",
-      "description": "Este aplicativo requer um navegador baseado no Chromium (como Google Chrome, Microsoft Edge ou Brave) para funcionar corretamente. Por favor, mude para um navegador compatível e tente novamente."
+      "title": "Este navegador não consegue gravar seu minerador",
+      "description": "A gravação se comunica com seu minerador via USB, algo que este navegador não suporta. Chrome, Edge e Brave funcionam no {{os}}.",
+      "mobile": "A gravação não é suportada em celulares ou tablets. Abra esta página em um computador Windows, macOS, Linux ou ChromeOS.",
+      "insecure": "Esta página precisa ser servida por HTTPS para alcançar seu minerador. Abra-a no endereço https:// ou use http://localhost para desenvolvimento local.",
+      "getBrowser": "Baixe um navegador compatível:",
+      "thisSystem": "seu sistema"
     }
   }
 }

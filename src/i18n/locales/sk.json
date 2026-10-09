@@ -1,9 +1,7 @@
 {
   "common": {
-    "theme": "Motív",
     "language": "Jazyk",
-    "dark": "Tmavý",
-    "light": "Svetlý"
+    "close": "Zavrieť"
   },
   "header": {
     "home": "Domov",
@@ -19,6 +17,9 @@
     "selectDevice": "Vybrať zariadenie",
     "selectBoard": "Vybrať verziu dosky",
     "selectFirmware": "Vybrať verziu firmware",
+    "deviceLabel": "Zariadenie",
+    "boardLabel": "Verzia dosky",
+    "firmwareLabel": "Verzia firmware",
     "startFlashing": "Spustiť Aktualizáciu",
     "flashing": "Aktualizujem...",
     "startLogging": "Spustiť Logovanie",
@@ -62,16 +63,35 @@
     "selectBoth": "Prosím, vyberte Vaše zariadenie a verziu dosky",
     "connectFirst": "Prosím, pripojte najprv Vaše zariadenie",
     "preparing": "Príprava aktualizácie...",
-    "downloadFirmware": "Downloading firmware...",
+    "downloadFirmware": "Sťahovanie firmware...",
     "flashing": "Aktualizujem: {{percent}}% dokončené",
     "completed": "Aktualizácia ukončená. Reštartujte Vaše zariadenie...",
     "success": "Aktualizácia úspešne ukončená! Zariadenie bolo reštartované.",
-    "loggingStarted": "Seriálove logovanie bolo spustené..."
+    "loggingStarted": "Seriálove logovanie bolo spustené...",
+    "connectionFailed": "Nepodarilo sa pripojiť k zariadeniu",
+    "disconnectError": "Nepodarilo sa korektne odpojiť",
+    "loggingError": "Seriálové logovanie zlyhalo",
+    "flashingFailed": "Aktualizácia zlyhala",
+    "tryAgain": "Skúste to prosím znova.",
+    "phase": {
+      "idle": "Pripravené",
+      "connecting": "Pripájanie",
+      "connected": "Pripojené",
+      "preparing": "Príprava",
+      "downloading": "Sťahovanie",
+      "flashing": "Aktualizácia",
+      "done": "Hotovo",
+      "error": "Zlyhalo"
+    }
   },
   "errors": {
     "browserCompatibility": {
-      "title": "Chyba kompatibility prehliadača",
-      "description": "Táto aplikácia vyžaduje prehliadač založený na technológií Chromium (napríklad Google Chrome, Microsoft Edge alebo Brave) pre správne fungovanie. Prosím, prejdite na kompatibilný prehliadač a skúste to znova."
+      "title": "Tento prehliadač nedokáže aktualizovať Váš miner",
+      "description": "Aktualizácia komunikuje s Vaším minerom cez USB, čo tento prehliadač nepodporuje. Chrome, Edge a Brave fungujú na {{os}}.",
+      "mobile": "Aktualizácia nie je podporovaná na telefónoch ani tabletoch. Otvorte túto stránku na počítači s Windows, macOS, Linux alebo ChromeOS.",
+      "insecure": "Táto stránka musí byť poskytovaná cez HTTPS, aby sa dostala k Vášmu mineru. Otvorte ju na jej https:// adrese alebo použite http://localhost pre lokálny vývoj.",
+      "getBrowser": "Stiahnuť podporovaný prehliadač:",
+      "thisSystem": "tomto systéme"
     }
   }
 }

@@ -1,9 +1,7 @@
 {
   "common": {
-    "theme": "Temă",
     "language": "Limbă",
-    "dark": "Întunecat",
-    "light": "Luminos"
+    "close": "Închide"
   },
   "header": {
     "home": "Acasă",
@@ -19,6 +17,9 @@
     "selectDevice": "Selectează dispozitiv",
     "selectBoard": "Selectează versiunea plăcii",
     "selectFirmware": "Selectează versiunea software",
+    "deviceLabel": "Dispozitiv",
+    "boardLabel": "Versiunea plăcii",
+    "firmwareLabel": "Versiunea software",
     "startFlashing": "Începe programarea",
     "flashing": "Programează...",
     "startLogging": "Pornește logarea",
@@ -62,16 +63,35 @@
     "selectBoth": "Te rugăm să selectezi atât modelul dispozitivului cât și versiunea plăcii",
     "connectFirst": "Te rugăm să te conectezi mai întâi la un dispozitiv",
     "preparing": "Se pregătește programarea...",
-    "downloadFirmware": "Downloading firmware...",
+    "downloadFirmware": "Se descarcă software-ul...",
     "flashing": "Programare: {{percent}}% completat",
     "completed": "Programare finalizată. Se repornește dispozitivul, te rugăm să aștepți...",
     "success": "Programare finalizată cu succes! Dispozitivul a fost repornit.",
-    "loggingStarted": "Înregistrarea serială a început..."
+    "loggingStarted": "Înregistrarea serială a început...",
+    "connectionFailed": "Nu s-a putut conecta la dispozitiv",
+    "disconnectError": "Deconectarea nu s-a încheiat corect",
+    "loggingError": "Înregistrarea serială a eșuat",
+    "flashingFailed": "Programarea a eșuat",
+    "tryAgain": "Te rugăm să încerci din nou.",
+    "phase": {
+      "idle": "Gata",
+      "connecting": "Se conectează",
+      "connected": "Conectat",
+      "preparing": "Se pregătește",
+      "downloading": "Se descarcă",
+      "flashing": "Programează",
+      "done": "Finalizat",
+      "error": "Eșuat"
+    }
   },
   "errors": {
     "browserCompatibility": {
-      "title": "Eroare de Compatibilitate Browser",
-      "description": "Această aplicație necesită un browser bazat pe Chromium (precum Google Chrome, Microsoft Edge, sau Brave) pentru a funcționa corect. Te rugăm să treci la un browser compatibil și să încerci din nou."
+      "title": "Acest browser nu poate programa minerul tău",
+      "description": "Programarea comunică cu minerul tău prin USB, lucru pe care acest browser nu îl suportă. Chrome, Edge și Brave funcționează pe {{os}}.",
+      "mobile": "Programarea nu este suportată pe telefoane sau tablete. Te rugăm să deschizi această pagină pe un computer cu Windows, macOS, Linux sau ChromeOS.",
+      "insecure": "Această pagină trebuie servită prin HTTPS pentru a putea ajunge la minerul tău. Deschide-o la adresa ei https:// sau folosește http://localhost pentru dezvoltare locală.",
+      "getBrowser": "Descarcă un browser compatibil:",
+      "thisSystem": "acest sistem"
     }
   }
 }

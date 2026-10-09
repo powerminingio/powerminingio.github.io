@@ -1,9 +1,7 @@
 {
     "common": {
-        "theme": "Doch",
         "language": "Hol",
-        "dark": "Hurgh",
-        "light": "wov"
+        "close": "yISoQmoH"
     },
     "header": {
         "home": "juH",
@@ -19,6 +17,9 @@
         "selectDevice": "jan yIwIv",
         "selectBoard": "janHom 'ay' yIwIv",
         "selectFirmware": "ngoq Segh yIwIv",
+        "deviceLabel": "jan",
+        "boardLabel": "janHom 'ay'",
+        "firmwareLabel": "ngoq Segh",
         "startFlashing": "ghItlhchoH",
         "flashing": "ghItlhqa'...",
         "startLogging": "De' ghItlhchoH",
@@ -62,16 +63,35 @@
         "selectBoth": "jan Segh 'ej janHom 'ay' yIwIv",
         "connectFirst": "jan chelpa' Datu'",
         "preparing": "ghItlhqa' tugh...",
-        "downloadFirmware": "Downloading firmware...",
+        "downloadFirmware": "ngoq Suqlu'...",
         "flashing": "ghItlhqa': {{percent}}% rIn",
         "completed": "ghItlhqa' rIn. jan taghqa'...",
         "success": "ghItlhqa' chu'! jan taghqa'.",
-        "loggingStarted": "De' ghItlhqa'..."
+        "loggingStarted": "De' ghItlhqa'...",
+        "connectionFailed": "jan chel Qapbe'",
+        "disconnectError": "teq Qapbe'",
+        "loggingError": "De' ghItlh Qapbe'",
+        "flashingFailed": "ghItlhqa' Qapbe'",
+        "tryAgain": "yInIDqa'.",
+        "phase": {
+            "idle": "ghuHpu'",
+            "connecting": "chel",
+            "connected": "chelpu'",
+            "preparing": "ghuH",
+            "downloading": "Suq",
+            "flashing": "ghItlhqa'",
+            "done": "rIn",
+            "error": "Qagh"
+        }
     },
     "errors": {
         "browserCompatibility": {
-            "title": "ngeb browser ngoD",
-            "description": "Qo' browser tlhogh Ha'DIbaHpu' 'ej chuqmey (Hoch Google Chrome, Microsoft Edge, Brave) lo'. tlhogh tlhogh ghItlhqa' bIra'."
+            "title": "jan vItlhqa'laHbe' browservam",
+            "description": "USB lo'taHvIS jan tlhob tlhqa'wI'; browservam tlhobvam qotlhbe'. {{os}}Daq Qap Chrome, Edge, Brave je.",
+            "mobile": "De'wI'Hom tablet joq lo'laHbe'. De'wI' Windows, macOS, Linux, ChromeOS joq yIlo'.",
+            "insecure": "jan Sambe' HTTPS lo'be'bogh ghItlh. https:// Daq yIpoSmoH, pagh http://localhost yIlo'.",
+            "getBrowser": "browser qotlhbogh yIHot:",
+            "thisSystem": "De'wI'vam"
         }
     }
 }

@@ -11,9 +11,19 @@ import device_data from './firmware_data.json'
 import { Card, Field, Notice, Pill } from './ui/pm'
 import { FlashProgress, MacTerm, ProgressRing, type FlashPhase } from './ui/pm-flasher'
 import { terminalTheme } from '@/lib/terminal-theme'
+import { detectPlatform, type PlatformInfo } from '@/lib/platform'
+import { requestSerialPort } from '@/lib/serial'
 
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
+
+// esptool-js documents Chrome and Edge; Brave is the same engine and a common
+// choice among miners. Firefox is deliberately absent — see src/lib/platform.ts.
+const SUPPORTED_BROWSERS = [
+  { name: 'Google Chrome', url: 'https://www.google.com/chrome/' },
+  { name: 'Microsoft Edge', url: 'https://www.microsoft.com/edge/download' },
+  { name: 'Brave', url: 'https://brave.com/download/' },
+]
 
 export default function LandingHero() {
   const { t } = useTranslation();
@@ -30,7 +40,8 @@ export default function LandingHero() {
   const [isFlashing, setIsFlashing] = useState(false)
   const [isLogging, setIsLogging] = useState(false)
   const [hasLogs, setHasLogs] = useState(false)
-  const [isChromiumBased, setIsChromiumBased] = useState(true)
+  // null until the effect runs; see the render guard below.
+  const [platform, setPlatform] = useState<PlatformInfo | null>(null)
   const serialPortRef = useRef<any>(null)
   const terminalRef = useRef<Terminal | null>(null)
   const terminalContainerRef = useRef<HTMLDivElement>(null)
@@ -41,9 +52,7 @@ export default function LandingHero() {
   const [keepConfig, setKeepConfig] = useState(false);
 
   useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isChromium = /chrome|chromium|crios|edge/i.test(userAgent);
-    setIsChromiumBased(isChromium);
+    setPlatform(detectPlatform());
   }, []);
 
   // Deliberately keyed on isLogging alone. `t` changes identity on every
@@ -100,7 +109,10 @@ export default function LandingHero() {
     setStatus(t('status.connecting'))
 
     try {
-      const port = await navigator.serial.requestPort()
+      // Native Web Serial on the desktop, web-serial-polyfill over WebUSB on
+      // Android. The port is interface-compatible either way, so nothing below
+      // this line needs to know which one it got.
+      const port = await requestSerialPort(platform?.serial ?? 'native')
       await port.open({
         baudRate: 115200,
         dataBits: 8,
@@ -389,21 +401,61 @@ export default function LandingHero() {
     </div>
   )
 
-  if (!isChromiumBased) {
-    return (
-      <section className="relative z-10 mx-auto w-full max-w-[1100px] px-4 py-12 text-center sm:px-8 md:py-20">
-        <div className="flex flex-col items-center gap-6">
-          {heroHeading}
-          <Notice
-            tone="warning"
-            role="alert"
-            title={t('errors.browserCompatibility.title')}
-            className="max-w-[560px]"
-          >
-            <p className="mt-1">{t('errors.browserCompatibility.description')}</p>
-          </Notice>
-        </div>
-      </section>
+  const shell = (children: React.ReactNode) => (
+    <section className="relative z-10 mx-auto w-full max-w-[1100px] px-4 py-12 text-center sm:px-8 md:py-20">
+      <div className="flex flex-col items-center gap-6">
+        {heroHeading}
+        {children}
+      </div>
+    </section>
+  )
+
+  // The check runs in an effect, so the first paint does not know the answer
+  // yet. Show the heading alone rather than a flasher we may be about to
+  // replace with "this browser can't do that".
+  if (platform === null) {
+    return shell(null)
+  }
+
+  if (platform.blocker !== null) {
+    const osLabel = platform.osLabel || t('errors.browserCompatibility.thisSystem')
+    const message =
+      platform.blocker === 'insecure'
+        ? t('errors.browserCompatibility.insecure')
+        : platform.blocker === 'mobile'
+          ? t('errors.browserCompatibility.mobile')
+          : t('errors.browserCompatibility.description', { os: osLabel })
+
+    // Only the engine case has something to download: there is no supported
+    // browser to install on iOS, and an insecure page is fixed by its URL.
+    const downloads =
+      platform.blocker === 'engine' ? (
+        <>
+          <span>{t('errors.browserCompatibility.getBrowser')}</span>
+          {SUPPORTED_BROWSERS.map((browser) => (
+            <a
+              key={browser.name}
+              className="text-primary underline-offset-[3px] hover:underline"
+              href={browser.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {browser.name}
+            </a>
+          ))}
+        </>
+      ) : undefined
+
+    return shell(
+      <Notice
+        tone="warning"
+        role="alert"
+        title={t('errors.browserCompatibility.title')}
+        className="max-w-[560px]"
+        actions={downloads}
+      >
+        <p className="mt-1">{message}</p>
+      </Notice>,
     )
   }
 

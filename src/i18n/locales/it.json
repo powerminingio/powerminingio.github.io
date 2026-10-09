@@ -1,9 +1,7 @@
 {
     "common": {
-        "theme": "Tema",
         "language": "Lingua",
-        "dark": "Scuro",
-        "light": "Chiaro"
+        "close": "Chiudi"
     },
     "header": {
         "home": "Home",
@@ -19,6 +17,9 @@
         "selectDevice": "Seleziona dispositivo",
         "selectBoard": "Seleziona versione scheda",
         "selectFirmware": "Seleziona versione firmware",
+        "deviceLabel": "Dispositivo",
+        "boardLabel": "Versione scheda",
+        "firmwareLabel": "Versione firmware",
         "startFlashing": "Inizia flashing",
         "flashing": "Flash in corso...",
         "startLogging": "Avvia registrazione Log",
@@ -62,16 +63,35 @@
         "selectBoth": "Seleziona sia il modello del dispositivo che la versione della scheda",
         "connectFirst": "Collegati prima a un dispositivo",
         "preparing": "Preparazione per il flashing in corso...",
-        "downloadFirmware": "Downloading firmware...",
+        "downloadFirmware": "Download del firmware in corso...",
         "flashing": "Flashing: {{percent}}% completato",
         "completed": "Flashing completato. Riavvio del dispositivo...",
         "success": "Flashing completato con successo! Il dispositivo stato riavviato.",
-        "loggingStarted": "Registrazione seriale avviata..."
+        "loggingStarted": "Registrazione seriale avviata...",
+        "connectionFailed": "Impossibile connettersi al dispositivo",
+        "disconnectError": "Impossibile disconnettersi correttamente",
+        "loggingError": "Registrazione seriale fallita",
+        "flashingFailed": "Flashing fallito",
+        "tryAgain": "Riprova.",
+        "phase": {
+            "idle": "Pronto",
+            "connecting": "Connessione",
+            "connected": "Connesso",
+            "preparing": "Preparazione",
+            "downloading": "Download",
+            "flashing": "Flashing",
+            "done": "Completato",
+            "error": "Fallito"
+        }
     },
     "errors": {
         "browserCompatibility": {
-            "title": "Errore di compatibilit del browser",
-            "description": "Questa applicazione richiede un browser basato su Chromium (come Google Chrome, Microsoft Edge o Brave) per funzionare correttamente. Passa a un browser compatibile e riprova."
+            "title": "Questo browser non può flashare il tuo miner",
+            "description": "Il flashing comunica con il tuo miner via USB, cosa che questo browser non supporta. Chrome, Edge e Brave funzionano su {{os}}.",
+            "mobile": "Il flashing non è supportato su smartphone o tablet. Apri questa pagina su un computer Windows, macOS, Linux o ChromeOS.",
+            "insecure": "Questa pagina deve essere servita tramite HTTPS per poter raggiungere il tuo miner. Aprila al suo indirizzo https:// oppure usa http://localhost per lo sviluppo locale.",
+            "getBrowser": "Scarica un browser supportato:",
+            "thisSystem": "questo sistema"
         }
     }
 }

@@ -1,9 +1,7 @@
-{
+  {
     "common": {
-      "theme": "Design",
       "language": "Sprache",
-      "dark": "Dunkel",
-      "light": "Hell"
+      "close": "Schließen"
     },
     "header": {
       "home": "Startseite",
@@ -19,6 +17,9 @@
       "selectDevice": "Gerät auswählen",
       "selectBoard": "Board-Version auswählen",
       "selectFirmware": "Firmware-Version auswählen",
+      "deviceLabel": "Gerät",
+      "boardLabel": "Board-Version",
+      "firmwareLabel": "Firmware-Version",
       "startFlashing": "Flashen starten",
       "flashing": "Flashen...",
       "startLogging": "Logging starten",
@@ -66,12 +67,31 @@
       "flashing": "Flashen: {{percent}}% abgeschlossen",
       "completed": "Flashen abgeschlossen. Gerät wird neu gestartet...",
       "success": "Flashen erfolgreich abgeschlossen! Gerät wurde neu gestartet.",
-      "loggingStarted": "Serielle Protokollierung gestartet..."
+      "loggingStarted": "Serielle Protokollierung gestartet...",
+      "connectionFailed": "Verbindung zum Gerät fehlgeschlagen",
+      "disconnectError": "Trennen war nicht sauber möglich",
+      "loggingError": "Serielle Protokollierung fehlgeschlagen",
+      "flashingFailed": "Flashen fehlgeschlagen",
+      "tryAgain": "Bitte versuche es erneut.",
+      "phase": {
+        "idle": "Bereit",
+        "connecting": "Verbinde",
+        "connected": "Verbunden",
+        "preparing": "Bereite vor",
+        "downloading": "Lade herunter",
+        "flashing": "Flashe",
+        "done": "Fertig",
+        "error": "Fehlgeschlagen"
+      }
     },
     "errors": {
       "browserCompatibility": {
-        "title": "Browser-Kompatibilitätsfehler",
-        "description": "Diese Anwendung benötigt einen Chromium-basierten Browser (wie Google Chrome, Microsoft Edge oder Brave), um ordnungsgemäß zu funktionieren. Bitte wechsle zu einem kompatiblen Browser und versuche es erneut."
+        "title": "Dieser Browser kann deinen Miner nicht flashen",
+        "description": "Zum Flashen muss der Browser über USB mit deinem Miner sprechen — das unterstützt dieser Browser nicht. Chrome, Edge und Brave funktionieren auf {{os}}.",
+        "mobile": "Flashen wird auf Smartphones und Tablets nicht unterstützt. Bitte öffne diese Seite auf einem Windows-, macOS-, Linux- oder ChromeOS-Computer.",
+        "insecure": "Diese Seite muss über HTTPS ausgeliefert werden, um deinen Miner zu erreichen. Öffne sie über ihre https://-Adresse oder nutze http://localhost für die lokale Entwicklung.",
+        "getBrowser": "Unterstützten Browser herunterladen:",
+        "thisSystem": "diesem System"
       }
     }
   }

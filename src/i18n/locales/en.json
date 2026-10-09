@@ -86,8 +86,12 @@
     },
     "errors": {
       "browserCompatibility": {
-        "title": "Browser Compatibility Error",
-        "description": "This application requires a Chromium-based browser (such as Google Chrome, Microsoft Edge, or Brave) to function properly. Please switch to a compatible browser and try again."
+        "title": "This browser can't flash your miner",
+        "description": "Flashing talks to your miner over USB, which this browser doesn't support. Chrome, Edge and Brave on {{os}} all work.",
+        "mobile": "Flashing isn't supported on phones or tablets. Please open this page on a Windows, macOS, Linux or ChromeOS computer.",
+        "insecure": "This page has to be served over HTTPS before it can reach your miner. Open it at its https:// address, or use http://localhost for local development.",
+        "getBrowser": "Get a supported browser:",
+        "thisSystem": "this system"
       }
     }
   }

@@ -1,9 +1,7 @@
 {
   "common": {
-    "theme": "Tema",
     "language": "Dil",
-    "dark": "Koyu",
-    "light": "Açık"
+    "close": "Kapat"
   },
   "header": {
     "home": "Ana Sayfa",
@@ -19,6 +17,9 @@
     "selectDevice": "Cihaz seç",
     "selectBoard": "Cihaz versiyonu seç",
     "selectFirmware": "Yazılım versiyonu seç",
+    "deviceLabel": "Cihaz",
+    "boardLabel": "Cihaz versiyonu",
+    "firmwareLabel": "Yazılım versiyonu",
     "startFlashing": "Formatlamaya Başla",
     "flashing": "Formatlanıyor...",
     "startLogging": "Loglamaya Başla",
@@ -62,16 +63,35 @@
     "selectBoth": "Lütfen cihaz modeli ve versiyonunu seçin",
     "connectFirst": "Lütfen önce cihazınızı bağlayın",
     "preparing": "Formatlamaya hazırlanıyor...",
-    "downloadFirmware": "Downloading firmware...",
+    "downloadFirmware": "Yazılım indiriliyor...",
     "flashing": "Formatlanıyor: {{percent}}% tamamlandı",
     "completed": "Formatlama tamamlandı. Cihaz baştan başlatılıyor...",
     "success": "Formatlama başarıyla tamamlandı! Cihaz baştan başlatıldı.",
-    "loggingStarted": "Loglama başlatıldı..."
+    "loggingStarted": "Loglama başlatıldı...",
+    "connectionFailed": "Cihaza bağlanılamadı",
+    "disconnectError": "Bağlantı düzgün kesilemedi",
+    "loggingError": "Loglama başarısız oldu",
+    "flashingFailed": "Formatlama başarısız oldu",
+    "tryAgain": "Lütfen tekrar deneyin.",
+    "phase": {
+      "idle": "Hazır",
+      "connecting": "Bağlanıyor",
+      "connected": "Bağlandı",
+      "preparing": "Hazırlanıyor",
+      "downloading": "İndiriliyor",
+      "flashing": "Formatlanıyor",
+      "done": "Tamamlandı",
+      "error": "Başarısız"
+    }
   },
   "errors": {
     "browserCompatibility": {
-      "title": "Tarayıcı Uyumluluk Hatası",
-      "description": "Bu uygulama, Chromium tabanlı tarayıcı (Google Chrome, Microsoft Edge veya Brave gibi) gerektirir. Lütfen uyumlu bir tarayıcı ile tekrar deneyin."
+      "title": "Bu tarayıcı madenci cihazınızı formatlayamıyor",
+      "description": "Formatlama, madenci cihazınızla USB üzerinden iletişim kurar; bu tarayıcı bunu desteklemiyor. {{os}} üzerinde Chrome, Edge ve Brave çalışır.",
+      "mobile": "Formatlama telefonlarda veya tabletlerde desteklenmiyor. Lütfen bu sayfayı Windows, macOS, Linux veya ChromeOS bilgisayarda açın.",
+      "insecure": "Bu sayfanın madenci cihazınıza ulaşabilmesi için HTTPS üzerinden sunulması gerekir. Sayfayı https:// adresinden açın veya yerel geliştirme için http://localhost kullanın.",
+      "getBrowser": "Desteklenen bir tarayıcı indirin:",
+      "thisSystem": "bu sistem"
     }
   }
 }
