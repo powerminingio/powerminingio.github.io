@@ -68,6 +68,7 @@
     "completed": "Programare finalizată. Se repornește dispozitivul, te rugăm să aștepți...",
     "success": "Programare finalizată cu succes! Dispozitivul a fost repornit.",
     "loggingStarted": "Înregistrarea serială a început...",
+    "nvsNotFound": "Nu s-a putut citi tabelul de partiții al acestui software, așa că nu îți putem păstra configurația. Debifează \"Păstrează configurația\" pentru a continua oricum.",
     "connectionFailed": "Nu s-a putut conecta la dispozitiv",
     "disconnectError": "Deconectarea nu s-a încheiat corect",
     "loggingError": "Înregistrarea serială a eșuat",

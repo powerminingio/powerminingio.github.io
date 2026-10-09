@@ -68,6 +68,7 @@
     "completed": "Gravação concluída. Reiniciando o dispositivo...",
     "success": "Gravação concluída com sucesso! O dispositivo foi reiniciado.",
     "loggingStarted": "Log serial iniciado...",
+    "nvsNotFound": "Não foi possível ler a tabela de partições deste firmware, portanto sua configuração não pode ser preservada. Desmarque \"Manter configuração\" para gravar mesmo assim.",
     "connectionFailed": "Não foi possível conectar ao dispositivo",
     "disconnectError": "Não foi possível desconectar corretamente",
     "loggingError": "Falha no log serial",

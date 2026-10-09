@@ -68,6 +68,7 @@
         "completed": "Flashing completato. Riavvio del dispositivo...",
         "success": "Flashing completato con successo! Il dispositivo stato riavviato.",
         "loggingStarted": "Registrazione seriale avviata...",
+        "nvsNotFound": "Impossibile leggere la tabella delle partizioni di questo firmware, quindi la configurazione non può essere mantenuta. Deseleziona \"Mantieni configurazione\" per procedere comunque.",
         "connectionFailed": "Impossibile connettersi al dispositivo",
         "disconnectError": "Impossibile disconnettersi correttamente",
         "loggingError": "Registrazione seriale fallita",

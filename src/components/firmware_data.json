@@ -1,39 +1,11 @@
 {
   "devices": [
     {
-      "name": "Aura",
-      "boards": [
+      "name": "Bitcube",
+      "supported_firmware": [
         {
-          "name": "Proto (2 x Teraflux)",
-          "supported_firmware": [
-            {
-              "version": "f9560f1",
-              "path": "firmware/aura_proto.bin"
-            }
-          ]
-        },
-        {
-          "name": "Duo (2 x Teraflux)",
-          "supported_firmware": [
-            {
-              "version": "db288f0",
-              "path": "firmware/aura_duo.bin"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "NerdQAxe",
-      "boards": [
-        {
-          "name": "++",
-          "supported_firmware": [
-            {
-              "version": "587af2b",
-              "path": "firmware/nerdqaxe++.bin"
-            }
-          ]
+          "version": "v0.1b",
+          "path": "firmware/pm_bitcube.bin"
         }
       ]
     }

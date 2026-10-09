@@ -13,6 +13,7 @@ import { FlashProgress, MacTerm, ProgressRing, type FlashPhase } from './ui/pm-f
 import { terminalTheme } from '@/lib/terminal-theme'
 import { detectPlatform, type PlatformInfo } from '@/lib/platform'
 import { requestSerialPort } from '@/lib/serial'
+import { findNvsRegion } from '@/lib/partitions'
 
 import { Terminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css';
@@ -84,16 +85,28 @@ export default function LandingHero() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogging]);
 
+  type Firmware = { version: string; path: string }
+  type Board = { name: string; supported_firmware?: Firmware[] }
+
   const devices = device_data.devices;
-  const device = selectedDevice !== ''
-    ? devices.find(d => d.name == selectedDevice)!
-    : { boards: [] };
+  const device: { name?: string; boards?: Board[]; supported_firmware?: Firmware[] } =
+    selectedDevice !== ''
+      ? devices.find(d => d.name == selectedDevice)!
+      : {};
+
+  // A device lists boards only when it has hardware revisions a buyer must tell
+  // apart. A product with one indivisible board carries its firmware directly,
+  // and the Board step is skipped rather than shown with an invented name.
+  const boards: Board[] = device.boards ?? [];
+  const hasBoards = boards.length > 0;
+
   const board = selectedBoardVersion !== ''
-    ? device.boards.find(b => b.name == selectedBoardVersion)!
-    : { supported_firmware: [] as Array<{ version: string; path: string }>, name: '' };
-  
+    ? boards.find(b => b.name == selectedBoardVersion)
+    : undefined;
+
   // Every build the flasher offers ships with the site.
-  const localFirmwareOptions = board && 'supported_firmware' in board ? board.supported_firmware || [] : [];
+  const localFirmwareOptions: Firmware[] =
+    (hasBoards ? board?.supported_firmware : device.supported_firmware) ?? [];
 
   // Every device ships exactly one pinned build today, so preselect it rather
   // than making the version a third click that only ever has one answer.
@@ -246,7 +259,7 @@ export default function LandingHero() {
       return
     }
 
-    if (!selectedDevice || !selectedBoardVersion) {
+    if (!selectedDevice || (hasBoards && !selectedBoardVersion)) {
       setStatus(t('status.selectBoth'))
       return
     }
@@ -313,21 +326,28 @@ export default function LandingHero() {
       setPercent(0)
       setStatus(t('status.flashing', { percent: 0 }))
 
-      // The same on every miner we ship firmware for
-      const nvsStart = 0x9000;
-      const nvsSize = 0x6000;
+      // Where NVS sits differs per board, so read it from the partition table
+      // this very image carries rather than assuming a fixed offset and size.
+      const nvs = keepConfig ? findNvsRegion(firmwareUint8Array) : null;
+
+      if (keepConfig && nvs === null) {
+        // Writing the whole image here would erase the settings the user just
+        // asked to keep, so stop instead and say why.
+        throw new Error(t('status.nvsNotFound'));
+      }
 
       let parts;
 
-      if (keepConfig) {
+      if (nvs) {
+        const nvsEnd = nvs.offset + nvs.size;
         parts = [
           {
-            data: firmwareUint8Array.subarray(0, nvsStart), // Data before NVS
+            data: firmwareUint8Array.subarray(0, nvs.offset), // Data before NVS
             address: 0,
           },
           {
-            data: firmwareUint8Array.subarray(nvsStart + nvsSize), // Data after NVS
-            address: nvsStart + nvsSize,
+            data: firmwareUint8Array.subarray(nvsEnd), // Data after NVS
+            address: nvsEnd,
           },
         ];
       } else {
@@ -488,13 +508,13 @@ export default function LandingHero() {
             />
           </Field>
 
-          {selectedDevice && (
+          {selectedDevice && hasBoards && (
             <Field label={t('hero.boardLabel')} htmlFor="board">
               <Selector
                 id="board"
                 placeholder={t('hero.selectBoard')}
                 value={selectedBoardVersion}
-                values={device.boards.map(b => b.name)}
+                values={boards.map(b => b.name)}
                 onValueChange={(value) => {
                   setSelectedBoardVersion(value)
                   setSelectedFirmware('')
@@ -504,7 +524,7 @@ export default function LandingHero() {
             </Field>
           )}
 
-          {selectedBoardVersion && (
+          {selectedDevice && (!hasBoards || selectedBoardVersion) && (
             <Field label={t('hero.firmwareLabel')} htmlFor="firmware">
               <Selector
                 id="firmware"
@@ -533,7 +553,7 @@ export default function LandingHero() {
           <Button
             className="w-full"
             onClick={handleStartFlashing}
-            disabled={!selectedDevice || !selectedBoardVersion || !selectedFirmware || isConnecting || isFlashing || !isConnected}
+            disabled={!selectedDevice || (hasBoards && !selectedBoardVersion) || !selectedFirmware || isConnecting || isFlashing || !isConnected}
           >
             {isFlashing ? t('hero.flashing') : t('hero.startFlashing')}
             {isFlashing ? <ProgressRing percent={percent} title={status} /> : <Zap />}

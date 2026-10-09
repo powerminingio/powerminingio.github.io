@@ -68,6 +68,7 @@
     "completed": "Aktualizácia ukončená. Reštartujte Vaše zariadenie...",
     "success": "Aktualizácia úspešne ukončená! Zariadenie bolo reštartované.",
     "loggingStarted": "Seriálove logovanie bolo spustené...",
+    "nvsNotFound": "Nepodarilo sa načítať tabuľku oblastí tohto firmware, takže Vašu konfiguráciu nie je možné zachovať. Odškrtnite \"Zachovať konfiguráciu\" a spustite aktualizáciu znova.",
     "connectionFailed": "Nepodarilo sa pripojiť k zariadeniu",
     "disconnectError": "Nepodarilo sa korektne odpojiť",
     "loggingError": "Seriálové logovanie zlyhalo",

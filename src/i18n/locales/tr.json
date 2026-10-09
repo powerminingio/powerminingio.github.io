@@ -68,6 +68,7 @@
     "completed": "Formatlama tamamlandı. Cihaz baştan başlatılıyor...",
     "success": "Formatlama başarıyla tamamlandı! Cihaz baştan başlatıldı.",
     "loggingStarted": "Loglama başlatıldı...",
+    "nvsNotFound": "Bu yazılımın bölüm tablosu okunamadı, bu yüzden yapılandırmanız korunamıyor. Yine de devam etmek için \"Yapılandırmayı koru\" seçeneğinin işaretini kaldırın.",
     "connectionFailed": "Cihaza bağlanılamadı",
     "disconnectError": "Bağlantı düzgün kesilemedi",
     "loggingError": "Loglama başarısız oldu",

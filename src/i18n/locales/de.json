@@ -68,6 +68,7 @@
       "completed": "Flashen abgeschlossen. Gerät wird neu gestartet...",
       "success": "Flashen erfolgreich abgeschlossen! Gerät wurde neu gestartet.",
       "loggingStarted": "Serielle Protokollierung gestartet...",
+      "nvsNotFound": "Die Partitionstabelle dieser Firmware konnte nicht gelesen werden, daher lässt sich deine Konfiguration nicht erhalten. Entferne den Haken bei \"Konfiguration behalten\", um trotzdem zu flashen.",
       "connectionFailed": "Verbindung zum Gerät fehlgeschlagen",
       "disconnectError": "Trennen war nicht sauber möglich",
       "loggingError": "Serielle Protokollierung fehlgeschlagen",
