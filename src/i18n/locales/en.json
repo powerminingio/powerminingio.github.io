@@ -58,17 +58,6 @@
       "moreInfo": "For more detailed instructions, please refer to our",
       "documentation": "documentation"
     },
-    "links": {
-      "title": "Get Your Bitaxe",
-      "subtitle": "Purchase from retailers worldwide",
-      "regions": {
-        "us": "United States",
-        "eu": "Europe",
-        "de": "Germany",
-        "uk": "United Kingdom",
-        "global": "Global"
-      }
-    },
     "status": {
       "connecting": "Connecting to device...",
       "connected": "Connected successfully!",

@@ -5,7 +5,6 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import InstructionPanel from '@/components/InstructionPanel'
 import LandingHero from '@/components/LandingHero'
-import LinksBar from '@/components/LinksBar'
 import Features from '@/components/Features'
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
       <Header onOpenPanel={() => setIsPanelOpen(true)} isPanelOpen={isPanelOpen} />
       <main className="flex-1">
         <LandingHero />
-        <LinksBar />
         <Features />
       </main>
       <Footer />
