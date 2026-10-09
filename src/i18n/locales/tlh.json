@@ -67,6 +67,7 @@
         "flashing": "ghItlhqa': {{percent}}% rIn",
         "completed": "ghItlhqa' rIn. jan taghqa'...",
         "success": "ghItlhqa' chu'! jan taghqa'.",
+        "resetHint": "narghqa'be'chugh jan, yIteq 'ej yIchelqa'.",
         "loggingStarted": "De' ghItlhqa'...",
         "nvsNotFound": "ngoq 'ay'mey tetlh laDlaHbe'. vaj nugh rI' choqlaHbe'. \"nugh rI' choq\" yIteq 'ej yInIDqa'.",
         "connectionFailed": "jan chel Qapbe'",

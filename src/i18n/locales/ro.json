@@ -67,6 +67,7 @@
     "flashing": "Programare: {{percent}}% completat",
     "completed": "Programare finalizată. Se repornește dispozitivul, te rugăm să aștepți...",
     "success": "Programare finalizată cu succes! Dispozitivul a fost repornit.",
+    "resetHint": "Dacă minerul nu revine singur, deconectează-l și conectează-l din nou.",
     "loggingStarted": "Înregistrarea serială a început...",
     "nvsNotFound": "Nu s-a putut citi tabelul de partiții al acestui software, așa că nu îți putem păstra configurația. Debifează \"Păstrează configurația\" pentru a continua oricum.",
     "connectionFailed": "Nu s-a putut conecta la dispozitiv",

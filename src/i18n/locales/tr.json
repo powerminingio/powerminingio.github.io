@@ -67,6 +67,7 @@
     "flashing": "Formatlanıyor: {{percent}}% tamamlandı",
     "completed": "Formatlama tamamlandı. Cihaz baştan başlatılıyor...",
     "success": "Formatlama başarıyla tamamlandı! Cihaz baştan başlatıldı.",
+    "resetHint": "Madenci cihazı kendiliğinden geri gelmezse, fişini çekip tekrar takın.",
     "loggingStarted": "Loglama başlatıldı...",
     "nvsNotFound": "Bu yazılımın bölüm tablosu okunamadı, bu yüzden yapılandırmanız korunamıyor. Yine de devam etmek için \"Yapılandırmayı koru\" seçeneğinin işaretini kaldırın.",
     "connectionFailed": "Cihaza bağlanılamadı",

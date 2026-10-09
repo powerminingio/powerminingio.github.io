@@ -67,6 +67,7 @@
     "flashing": "Aktualizujem: {{percent}}% dokončené",
     "completed": "Aktualizácia ukončená. Reštartujte Vaše zariadenie...",
     "success": "Aktualizácia úspešne ukončená! Zariadenie bolo reštartované.",
+    "resetHint": "Ak sa miner sám nevráti, odpojte ho a znova pripojte.",
     "loggingStarted": "Seriálove logovanie bolo spustené...",
     "nvsNotFound": "Nepodarilo sa načítať tabuľku oblastí tohto firmware, takže Vašu konfiguráciu nie je možné zachovať. Odškrtnite \"Zachovať konfiguráciu\" a spustite aktualizáciu znova.",
     "connectionFailed": "Nepodarilo sa pripojiť k zariadeniu",

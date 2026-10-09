@@ -14,6 +14,7 @@ import { terminalTheme } from '@/lib/terminal-theme'
 import { detectPlatform, type PlatformInfo } from '@/lib/platform'
 import { requestSerialPort } from '@/lib/serial'
 import { findNvsRegion } from '@/lib/partitions'
+import { resetIntoApp } from '@/lib/reset'
 import BleConfigurator from './BleConfigurator'
 
 import { Terminal } from '@xterm/xterm';
@@ -384,18 +385,25 @@ export default function LandingHero() {
       setPercent(100)
       setStatus(t('status.completed'))
       
-      // Hard reset the device
-      await loader.after('hard_reset')
-      
-      // Disconnect the transport to release the serial port
-      await transport.disconnect()
-      
-      // Close the serial port to complete the disconnection
-      if (serialPortRef.current?.readable) {
-        await serialPortRef.current.close()
+      // Pulse EN so the chip leaves the bootloader and runs what we just wrote.
+      // esptool-js's own hard_reset cannot do this — see src/lib/reset.ts.
+      const outcome = await resetIntoApp(loader)
+      console.info(`Reset after flashing: ${outcome}`)
+
+      // A device on internal USB re-enumerates as it reboots, so the port going
+      // away here is the expected outcome of a *successful* reset, not a
+      // failure. Keep teardown out of the main try: throwing from it used to
+      // report "Flashing failed" after a flash that worked.
+      try {
+        await transport.disconnect()
+        if (serialPortRef.current?.readable) {
+          await serialPortRef.current.close()
+        }
+      } catch (error) {
+        console.info('Serial port went away while resetting, as expected', error)
       }
-      
-      // Clear the serial port reference and update connection state
+
+      // Released either way, so the UI never thinks it still holds a dead port.
       serialPortRef.current = null
       setIsConnected(false)
 
@@ -593,6 +601,14 @@ export default function LandingHero() {
                 status={status}
                 label={t(`status.phase.${phase}`)}
               />
+            )}
+
+            {/* The port disappears as the miner reboots, so the page cannot
+                actually observe it come back. Say so rather than claim it. */}
+            {phase === 'done' && (
+              <p className="text-left text-[13px] leading-relaxed text-muted-foreground">
+                {t('status.resetHint')}
+              </p>
             )}
           </Card>
 

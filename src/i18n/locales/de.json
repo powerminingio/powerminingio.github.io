@@ -67,6 +67,7 @@
       "flashing": "Flashen: {{percent}}% abgeschlossen",
       "completed": "Flashen abgeschlossen. Gerät wird neu gestartet...",
       "success": "Flashen erfolgreich abgeschlossen! Gerät wurde neu gestartet.",
+      "resetHint": "Falls der Miner nicht von selbst zurückkommt, zieh ihn kurz ab und steck ihn wieder ein.",
       "loggingStarted": "Serielle Protokollierung gestartet...",
       "nvsNotFound": "Die Partitionstabelle dieser Firmware konnte nicht gelesen werden, daher lässt sich deine Konfiguration nicht erhalten. Entferne den Haken bei \"Konfiguration behalten\", um trotzdem zu flashen.",
       "connectionFailed": "Verbindung zum Gerät fehlgeschlagen",

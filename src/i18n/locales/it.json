@@ -67,6 +67,7 @@
         "flashing": "Flashing: {{percent}}% completato",
         "completed": "Flashing completato. Riavvio del dispositivo...",
         "success": "Flashing completato con successo! Il dispositivo stato riavviato.",
+        "resetHint": "Se il miner non torna da solo, scollegalo e ricollegalo.",
         "loggingStarted": "Registrazione seriale avviata...",
         "nvsNotFound": "Impossibile leggere la tabella delle partizioni di questo firmware, quindi la configurazione non può essere mantenuta. Deseleziona \"Mantieni configurazione\" per procedere comunque.",
         "connectionFailed": "Impossibile connettersi al dispositivo",

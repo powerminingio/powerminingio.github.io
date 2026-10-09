@@ -67,6 +67,7 @@
     "flashing": "Gravando: {{percent}}% concluído",
     "completed": "Gravação concluída. Reiniciando o dispositivo...",
     "success": "Gravação concluída com sucesso! O dispositivo foi reiniciado.",
+    "resetHint": "Se o minerador não voltar sozinho, desconecte-o e conecte-o novamente.",
     "loggingStarted": "Log serial iniciado...",
     "nvsNotFound": "Não foi possível ler a tabela de partições deste firmware, portanto sua configuração não pode ser preservada. Desmarque \"Manter configuração\" para gravar mesmo assim.",
     "connectionFailed": "Não foi possível conectar ao dispositivo",

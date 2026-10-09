@@ -67,6 +67,7 @@
       "flashing": "Flashing: {{percent}}% complete",
       "completed": "Flashing completed. Restarting device, please wait...",
       "success": "Flashing completed successfully! Device has been restarted.",
+      "resetHint": "If the miner doesn't come back on its own, unplug it and plug it back in.",
       "loggingStarted": "Serial logging started...",
       "nvsNotFound": "Could not read the partition layout from this firmware, so your configuration cannot be preserved. Untick \"Keep configuration\" to flash anyway.",
       "connectionFailed": "Could not connect to the device",
