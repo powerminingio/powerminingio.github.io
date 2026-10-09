@@ -59,7 +59,7 @@ export default function Footer() {
       </Modal>
 
       <footer className="relative z-10 mx-auto flex w-full max-w-[1100px] shrink-0 flex-col items-center gap-2 border-t border-border px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:px-8">
-        <p>© 2025 Power Mining. Bitaxe Web Flasher.</p>
+        <p>© 2025 Power Mining. Web Flasher.</p>
         <Link className="hover:text-foreground hover:underline underline-offset-4" href="https://wantclue.de">
           Maintained by WantClue
         </Link>

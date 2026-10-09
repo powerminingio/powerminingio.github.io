@@ -5,8 +5,8 @@ import { I18nProvider } from '../components/I18nProvider'
 // Icons come from src/app/icon.png and src/app/apple-icon.png by Next's file
 // convention, so their URLs track the build's basePath on their own.
 export const metadata: Metadata = {
-  title: 'Bitaxe Web Flasher — Power Mining',
-  description: 'Flash your Bitaxe directly from the web',
+  title: 'Power Mining Web Flasher',
+  description: 'Flash your miner directly from the web',
 }
 
 export default function RootLayout({

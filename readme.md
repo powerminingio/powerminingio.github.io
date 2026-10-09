@@ -1,8 +1,8 @@
 [![](https://dcbadge.vercel.app/api/server/3E8ca2dkcC)](https://discord.gg/3E8ca2dkcC)
 
-# Bitaxe Web Flasher
+# Power Mining Web Flasher
 
-The Bitaxe Web Flasher is the open source tool that provides you an easy solution to flash a factory file to your device.
+The Power Mining Web Flasher is the open source tool that provides you an easy solution to flash a factory file to your device.
 
 **Live at <https://powerminingio.github.io/>.**
 

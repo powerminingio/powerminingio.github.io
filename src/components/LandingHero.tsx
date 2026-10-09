@@ -221,7 +221,7 @@ export default function LandingHero() {
     const a = document.createElement('a');
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     a.href = url;
-    a.download = `bitaxe-logs-${timestamp}.txt`;
+    a.download = `miner-logs-${timestamp}.txt`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
@@ -301,7 +301,7 @@ export default function LandingHero() {
       setPercent(0)
       setStatus(t('status.flashing', { percent: 0 }))
 
-      // On all Bitaxe derivatives the same
+      // The same on every miner we ship firmware for
       const nvsStart = 0x9000;
       const nvsSize = 0x6000;
 
