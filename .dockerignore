@@ -1,0 +1,18 @@
+# Build context hygiene. Without this, COPY . . carries ~634 MB of host-built
+# artefacts into the image — and a host node_modules can be built for a
+# different platform, shadowing the one the image just installed.
+node_modules
+.next
+out
+
+.git
+.github
+
+# Editor/workspace odds and ends
+*.code-workspace
+.vscode
+.idea
+.DS_Store
+
+# public/ is deliberately NOT ignored: the firmware binaries live there and the
+# dev server has to serve them.

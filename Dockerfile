@@ -1,20 +1,39 @@
-# Use the official Node.js LTS image
-FROM node:20-alpine
+# Two targets:
+#
+#   docker build .                  -> production: nginx serving the static export (~26 MB)
+#   docker build . --target dev     -> development: Next dev server with hot reload (~830 MB)
+#
+# Production is a static export (next.config.js sets output: 'export'), exactly
+# what GitHub Pages serves — there is no Node server in production, and
+# `next start` cannot work here.
 
-# Set the working directory inside the container
+# node:20 went end of life on 2026-04-30; 24 is Active LTS.
+FROM node:24-alpine AS deps
 WORKDIR /app
+# Copied first so the install layer caches until the manifests change.
+COPY package.json package-lock.json ./
+# ci, not install: reproducible and matched to the lockfile.
+RUN npm ci
 
-# Copy package.json and package-lock.json for dependency installation
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application files
+# --- development: hot reload, for working on the app without a local Node ---
+FROM deps AS dev
+WORKDIR /app
 COPY . .
-
-# Expose the default Next.js port
 EXPOSE 3000
+# -H 0.0.0.0 matters: Next binds localhost by default, which inside a container
+# means the published port answers nothing.
+CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0"]
 
-# Command to run the development server
-CMD ["npm", "run", "dev"]
+# --- build the static export ---
+FROM deps AS build
+WORKDIR /app
+COPY . .
+RUN npm run build
+
+# --- production (default target): just the files, no Node runtime ---
+# alpine-slim over alpine: same config support, 14 MB instead of 63.6 MB,
+# because it drops the njs and geoip modules this site never uses.
+FROM nginx:alpine-slim AS production
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/out /usr/share/nginx/html
+EXPOSE 80
