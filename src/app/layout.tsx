@@ -1,21 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import { ClientThemeWrapper } from '../components/ClientThemeWrapper'
 import { I18nProvider } from '../components/I18nProvider'
-
-const inter = Inter({ subsets: ['latin'] })
-
-const basePath = process.env.NODE_ENV === 'production' ? '/bitaxe-web-flasher' : ''
+import { asset } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: 'Bitaxe Web Flasher',
+  title: 'Bitaxe Web Flasher — Power Mining',
   description: 'Flash your Bitaxe directly from the web',
   icons: {
     icon: [
       {
-        url: `${basePath}/pictures/logo.png`,
+        url: asset('/pictures/pm-favicon.png'),
         sizes: 'any',
+        type: 'image/png',
+      }
+    ],
+    apple: [
+      {
+        url: asset('/pictures/pm-mark.png'),
         type: 'image/png',
       }
     ]
@@ -28,17 +29,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ClientThemeWrapper>
-          <I18nProvider>
-              <div className="min-h-screen bg-background text-foreground">
-                <main className="w-full p-4">
-                  {children}
-                </main>
-              </div>
-          </I18nProvider>
-        </ClientThemeWrapper>
+    <html lang="en">
+      <body>
+        {/* Ambient blobs sit outside I18nProvider, which renders null until its
+            effect runs — inside, first paint would be bare white. */}
+        <div className="pm-bg" aria-hidden="true">
+          <div className="pm-blob b1" />
+          <div className="pm-blob b2" />
+          <div className="pm-blob b3" />
+        </div>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   )

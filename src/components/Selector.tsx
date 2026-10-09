@@ -5,12 +5,15 @@ type SelectorProps = {
   disabled?: boolean;
   values?: string[];
   placeholder?: string;
+  id?: string;
+  /** Pass to keep the trigger in step when the selection is reset upstream. */
+  value?: string;
 }
 
-export default function BoardVersionSelector({ onValueChange, disabled, placeholder = '', values = [] }: SelectorProps) {
+export default function BoardVersionSelector({ onValueChange, disabled, placeholder = '', values = [], id, value }: SelectorProps) {
   return (
-    <Select onValueChange={onValueChange} disabled={disabled}>
-      <SelectTrigger>
+    <Select onValueChange={onValueChange} disabled={disabled} value={value}>
+      <SelectTrigger id={id}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

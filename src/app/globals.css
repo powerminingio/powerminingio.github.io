@@ -1,76 +1,215 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+/*
+ * Design tokens. Values follow the Power Mining "Glass" language as set by the Bitcube
+ * web handoff (reference: pm-miner miner_insight_dash_source/src/index.css) and the
+ * hashrate rental portal (pm-hashrate-rental portal/templates/style_glass.html):
+ * ink #1D1D1F, muted #6E6E73, blue #0E6FD8, green #248A3D on #eaf5ed,
+ * amber #956014 on #fff4df, red #C4342B, page #F5F7FA, hairline rgba(0,0,0,.08).
+ *
+ * This page is light-only, as the rental portal is. There is deliberately no .dark
+ * block and no theme toggle. Edit here to restyle the whole flasher.
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    color-scheme: light;
+
+    --background: 216 33% 97%;
+    --foreground: 240 3% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
- 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
- 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
- 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --card-foreground: 240 3% 12%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
- 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 12%;
+
+    --primary: 211 88% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 94%;
+    --secondary-foreground: 240 3% 12%;
+
+    --muted: 240 5% 94%;
+    --muted-foreground: 240 2% 44%;
+
+    --accent: 211 88% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 4 64% 47%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 135 59% 34%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 76% 33%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Tinted backgrounds for pills and notices. */
+    --success-soft: 136 41% 94%;
+    --warning-soft: 39 100% 94%;
+    --warning-line: 40 58% 83%;
+    --info-soft: 214 82% 96%;
+    --info-line: 213 70% 89%;
+
+    --border: 216 9% 89%;
+    --input: 216 9% 85%;
+    --ring: 211 88% 45%;
+
+    --radius: 0.875rem;
+
+    /* Segmented-control track and the raised "on" segment. */
+    --segment-track: 240 5% 92%;
+    --segment-on: 0 0% 100%;
+
+    --shadow-card: 0 8px 24px rgba(31, 53, 83, 0.055), inset 0 1px 0 #fff;
+    --card-line: rgba(255, 255, 255, 0.9);
+    --shadow-pill: 0 1px 4px rgba(0, 0, 0, 0.12);
+    --shadow-menu: 0 18px 50px rgba(31, 59, 110, 0.2);
+    --shadow-term: 0 14px 40px rgba(31, 59, 110, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    --focus-ring: 0 0 0 4px rgba(14, 111, 216, 0.16);
+
+    --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Inter, sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    min-width: 320px;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  /* The author-origin reset Tailwind's preflight applies beats the UA rule that
+     centres a modal <dialog> against inset:0, so restore it here once — otherwise
+     every dialog opens pinned to the viewport's top-left. */
+  dialog {
+    margin: auto;
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+  }
+  @supports (height: 100dvh) {
+    dialog {
+      max-height: calc(100dvh - 2rem);
+    }
   }
 }
+
+@layer components {
+  /* Glass card: white at 76% with a bright edge (handoff .card). */
+  .pm-card {
+    @apply min-w-0 rounded-card bg-card/[.76] p-5 shadow-card sm:p-[26px];
+    border: 1px solid var(--card-line);
+  }
+  /* The hero's flash panel and the serial terminal get the rental site's real
+     glass, since they sit directly over the ambient blobs. Keep backdrop-filter
+     off anything that contains a position:fixed child — a filtered element
+     becomes its containing block (the drawer and the modals would break). */
+  .pm-glass {
+    @apply rounded-card bg-card/[.62] shadow-card;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  }
+}
+
+/* Ambient background: two cool blobs and one warm, fixed behind everything.
+   Lifted from the rental portal, where it is the strongest brand signal. */
+.pm-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.pm-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+}
+.pm-blob.b1 {
+  width: 640px;
+  height: 640px;
+  left: -160px;
+  top: -220px;
+  background: radial-gradient(circle, #bfd9ff, transparent 65%);
+}
+.pm-blob.b2 {
+  width: 560px;
+  height: 560px;
+  right: -140px;
+  bottom: -200px;
+  background: radial-gradient(circle, #cde4ff, transparent 65%);
+}
+.pm-blob.b3 {
+  width: 380px;
+  height: 380px;
+  right: 16%;
+  top: -140px;
+  background: radial-gradient(circle, #ffe3bf, transparent 65%);
+  opacity: 0.4;
+}
+
+/* Native checkbox in the dashboard's blue — one control does not justify
+   pulling in @radix-ui/react-checkbox. Mirrors the source's .pm-range. */
+.pm-check {
+  width: 1rem;
+  height: 1rem;
+  accent-color: hsl(var(--primary));
+  cursor: pointer;
+}
+.pm-check:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Live dot ring, as the rental site's .pulse (pmpulse keyframes). */
+@keyframes pm-pulse {
+  0% { box-shadow: 0 0 0 0 hsl(var(--success) / 0.45); }
+  100% { box-shadow: 0 0 0 6px hsl(var(--success) / 0); }
+}
+
+.animate-pm-pulse {
+  animation: pm-pulse 2s infinite;
+}
+
+/* Progress with no percentage to report: a sweep rather than a stuck bar. */
+@keyframes pm-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.animate-pm-indeterminate {
+  animation: pm-indeterminate 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pm-pulse,
+  .animate-pm-indeterminate {
+    animation: none;
+  }
+}
+
+/* Scrollbar — minimal Apple style */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--muted-foreground) / 0.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.55); }

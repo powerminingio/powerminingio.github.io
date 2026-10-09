@@ -1,9 +1,7 @@
 {
     "common": {
-      "theme": "Theme",
       "language": "Language",
-      "dark": "Dark",
-      "light": "Light"
+      "close": "Close"
     },
     "header": {
       "home": "Home",
@@ -19,6 +17,9 @@
       "selectDevice": "Select device",
       "selectBoard": "Select board version",
       "selectFirmware": "Select firmware version",
+      "deviceLabel": "Device",
+      "boardLabel": "Board version",
+      "firmwareLabel": "Firmware version",
       "loadingFirmware": "Loading firmware versions...",
       "startFlashing": "Start Flashing",
       "flashing": "Flashing...",
@@ -57,6 +58,17 @@
       "moreInfo": "For more detailed instructions, please refer to our",
       "documentation": "documentation"
     },
+    "links": {
+      "title": "Get Your Bitaxe",
+      "subtitle": "Purchase from retailers worldwide",
+      "regions": {
+        "us": "United States",
+        "eu": "Europe",
+        "de": "Germany",
+        "uk": "United Kingdom",
+        "global": "Global"
+      }
+    },
     "status": {
       "connecting": "Connecting to device...",
       "connected": "Connected successfully!",
@@ -67,7 +79,22 @@
       "flashing": "Flashing: {{percent}}% complete",
       "completed": "Flashing completed. Restarting device, please wait...",
       "success": "Flashing completed successfully! Device has been restarted.",
-      "loggingStarted": "Serial logging started..."
+      "loggingStarted": "Serial logging started...",
+      "connectionFailed": "Could not connect to the device",
+      "disconnectError": "Could not disconnect cleanly",
+      "loggingError": "Serial logging failed",
+      "flashingFailed": "Flashing failed",
+      "tryAgain": "Please try again.",
+      "phase": {
+        "idle": "Ready",
+        "connecting": "Connecting",
+        "connected": "Connected",
+        "preparing": "Preparing",
+        "downloading": "Downloading",
+        "flashing": "Flashing",
+        "done": "Done",
+        "error": "Failed"
+      }
     },
     "errors": {
       "browserCompatibility": {

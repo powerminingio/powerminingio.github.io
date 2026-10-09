@@ -4,26 +4,30 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+// Power Mining "Glass" buttons: full pills at 980px, a 44px touch floor, and a
+// soft focus halo rather than an offset ring. Heights are min-h-* on purpose —
+// nine locales run long and a fixed height clips a wrapped label.
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill font-medium transition-colors focus-visible:outline-none focus-visible:shadow-focus disabled:pointer-events-none disabled:opacity-50 [&_svg]:h-4 [&_svg]:w-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[.985] motion-reduce:active:scale-100",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-border bg-card/85 text-foreground hover:bg-foreground/[.035]",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        ghost: "text-muted-foreground hover:bg-foreground/[.035] hover:text-foreground",
+        link: "text-primary underline-offset-[3px] hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "min-h-[44px] px-[21px] text-[15px]",
+        sm: "min-h-9 px-3.5 text-[13px]",
+        lg: "min-h-[50px] px-7 text-base",
+        icon: "h-10 w-10 p-0",
       },
     },
     defaultVariants: {

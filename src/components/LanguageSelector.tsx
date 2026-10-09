@@ -25,23 +25,23 @@ const LanguageSelector = () => {
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-sm">{t('common.language')}:</span>
-      <Select value={i18n.language} onValueChange={handleLanguageChange}>
-        <SelectTrigger className="w-28">
-          <SelectValue placeholder={getCurrentLanguageLabel()}>
-            {getCurrentLanguageLabel()}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          {languages.map((lang) => (
-            <SelectItem key={lang.value} value={lang.value}>
-              {lang.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select value={i18n.language} onValueChange={handleLanguageChange}>
+      <SelectTrigger
+        aria-label={t('common.language')}
+        className="min-h-[38px] w-auto min-w-[8.5rem] rounded-pill border-transparent bg-transparent px-[17px] text-sm text-muted-foreground hover:bg-foreground/[.035] hover:text-foreground"
+      >
+        <SelectValue placeholder={getCurrentLanguageLabel()}>
+          {getCurrentLanguageLabel()}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        {languages.map((lang) => (
+          <SelectItem key={lang.value} value={lang.value}>
+            {lang.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 
