@@ -119,6 +119,20 @@
     "scanFailed": "Căutarea nu a putut fi pornită",
     "resultsFresh": "Rețele găsite: {{found}}.",
     "resultsAge": "Rețele găsite: {{found}} (acum {{seconds}} s).",
+    "choosingDevice": "Alege-ți minerul în fereastra browserului…",
+    "readingSettings": "Se citesc setările curente Wi-Fi și pool…",
+    "writingField": "Se scrie {{name}}…",
+    "applying": "Se cere minerului să salveze…",
+    "phase": {
+      "idle": "Neconectat",
+      "connecting": "Se conectează",
+      "reading": "Se citesc setările",
+      "ready": "Conectat",
+      "saving": "Se salvează",
+      "applied": "Salvat",
+      "restarting": "Repornește",
+      "error": "Eșuat"
+    },
     "status": {
       "READY": "Gata",
       "PENDING_APPLY": "Se salvează...",

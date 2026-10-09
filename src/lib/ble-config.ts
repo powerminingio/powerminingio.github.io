@@ -140,12 +140,39 @@ export const KNOWN_STATUSES = [
   'ERROR_PERSIST_FAILED',
 ] as const
 
+/** What the panel is doing, which drives the progress readout. */
+export type BlePhase =
+  | 'idle'
+  | 'connecting'
+  | 'reading'
+  | 'ready'
+  | 'saving'
+  | 'applied'
+  | 'restarting'
+  | 'error'
+
+/**
+ * Map a firmware status onto a phase.
+ *
+ * Lives here rather than in the component so it can be tested against
+ * KNOWN_STATUSES — this is the logic most likely to drift when the firmware
+ * gains a status. Anything unrecognised degrades to 'ready', so newer firmware
+ * shows as connected rather than blank.
+ */
+export function classifyStatus(status: string): BlePhase {
+  if (status.startsWith('ERROR')) return 'error'
+  if (status === 'APPLIED_RESTART_REQUIRED') return 'applied'
+  if (status === 'RESTARTING') return 'restarting'
+  return 'ready'
+}
+
 export type FieldValues = Record<FieldName, string>
 
 export interface MinerConnection {
   /** Advertised local name, e.g. "Bitcube-FC683C". */
   name: string
-  readAll(): Promise<FieldValues>
+  /** @param onProgress called as each field lands, for the progress bar. */
+  readAll(onProgress?: (done: number, total: number) => void): Promise<FieldValues>
   write(field: FieldName, value: string): Promise<void>
   sendCommand(command: Command): Promise<void>
   /** Subscribe to status; returns the current value immediately too. */
@@ -236,9 +263,16 @@ export async function connectToMiner(): Promise<MinerConnection> {
   return {
     name: device.name ?? '',
 
-    async readAll() {
+    async readAll(onProgress) {
+      // Six round trips: slow enough on BLE that the caller needs to say so.
+      let done = 0
       const values = await Promise.all(
-        FIELD_ORDER.map(async (name) => [name, decode(await chars[name].readValue())] as const),
+        FIELD_ORDER.map(async (name) => {
+          const value = decode(await chars[name].readValue())
+          done += 1
+          onProgress?.(done, FIELD_ORDER.length)
+          return [name, value] as const
+        }),
       )
       return Object.fromEntries(values) as FieldValues
     },

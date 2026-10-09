@@ -119,6 +119,20 @@
       "scanFailed": "Could not start the scan",
       "resultsFresh": "Networks found: {{found}}.",
       "resultsAge": "Networks found: {{found}} ({{seconds}}s ago).",
+      "choosingDevice": "Choose your miner in the browser's dialog…",
+      "readingSettings": "Reading the miner's current Wi-Fi and pool settings…",
+      "writingField": "Writing {{name}}…",
+      "applying": "Asking the miner to save…",
+      "phase": {
+        "idle": "Not connected",
+        "connecting": "Connecting",
+        "reading": "Reading settings",
+        "ready": "Connected",
+        "saving": "Saving",
+        "applied": "Saved",
+        "restarting": "Restarting",
+        "error": "Failed"
+      },
       "status": {
         "READY": "Ready",
         "PENDING_APPLY": "Saving...",

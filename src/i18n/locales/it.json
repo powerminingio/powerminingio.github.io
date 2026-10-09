@@ -119,6 +119,20 @@
         "scanFailed": "Impossibile avviare la ricerca",
         "resultsFresh": "Reti trovate: {{found}}.",
         "resultsAge": "Reti trovate: {{found}} ({{seconds}} s fa).",
+        "choosingDevice": "Scegli il tuo miner nella finestra del browser…",
+        "readingSettings": "Lettura delle impostazioni Wi-Fi e pool attuali…",
+        "writingField": "Scrittura di {{name}}…",
+        "applying": "Richiesta di salvataggio al miner…",
+        "phase": {
+            "idle": "Non connesso",
+            "connecting": "Connessione",
+            "reading": "Lettura impostazioni",
+            "ready": "Connesso",
+            "saving": "Salvataggio",
+            "applied": "Salvato",
+            "restarting": "Riavvio",
+            "error": "Fallito"
+        },
         "status": {
             "READY": "Pronto",
             "PENDING_APPLY": "Salvataggio...",

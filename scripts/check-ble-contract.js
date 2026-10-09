@@ -98,26 +98,30 @@ const missing = fwStatuses.filter((s) => !KNOWN_STATUSES.includes(s))
 check(`all ${fwStatuses.length} firmware status strings are known`, missing.length === 0, missing.join(', '))
 
 // --- Wi-Fi scan extension (PM-specific; see pm-miner/docs/BLE_WIFI_SCAN.md) ---
-// Until the firmware implements it, the note is the only source of truth. Once
-// setup_ble_service.cpp carries these UUIDs, prefer them over the note.
+// The real UUIDs live LSB-first inside BLE_UUID128_INIT, so decode the array
+// rather than string-matching the file: in string form they appear only in a
+// comment, which would make a doc note look like an implementation.
+const scanBlock = /SCAN_CHARACTERISTIC_UUIDS\[\d*\]\s*=\s*\{([\s\S]*?)\n\};/.exec(cpp)
 const NOTE = path.join(FW, 'docs', 'BLE_WIFI_SCAN.md')
-if (fs.existsSync(NOTE)) {
-  const note = fs.readFileSync(NOTE, 'utf8')
-  const inCpp = [...cpp.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0])
-  const spec = [...new Set([...note.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0]))].sort()
-  const source = inCpp.length ? 'setup_ble_service.cpp' : 'BLE_WIFI_SCAN.md'
 
-  check(`scan UUIDs documented (${source})`, spec.length === 2, spec.join(', '))
-  check('scan control UUID matches client', SCAN_CONTROL_UUID === spec[0], spec[0])
-  check('scan result UUID matches client', SCAN_RESULT_UUID === spec[1], spec[1])
-  check('scan UUIDs do not collide with the setup service', !spec.includes(fwService))
+if (scanBlock) {
+  const fwScan = [...scanBlock[1].matchAll(/BLE_UUID128_INIT\(([\s\S]*?)\)/g)].map((m) => uuidFromInit(m[1]))
+  check('firmware defines both scan characteristics', fwScan.length === 2, `${fwScan.length}`)
+  check('scan control UUID matches firmware', SCAN_CONTROL_UUID === fwScan[0], fwScan[0])
+  check('scan result UUID matches firmware', SCAN_RESULT_UUID === fwScan[1], fwScan[1])
+  check('scan UUIDs are distinct from the setup service', !fwScan.includes(fwService))
   check('scan UUIDs do not extend the upstream char base',
-        !spec.some((u) => u.startsWith('beb5483e')))
-  if (inCpp.length) {
-    check('firmware implements both scan characteristics', new Set(inCpp).size === 2)
-  } else {
-    console.log('NOTE  firmware has not implemented the scan extension yet (client degrades via NotFoundError)')
-  }
+        !fwScan.some((u) => u.startsWith('beb5483e')))
+  check('scan UUIDs collide with no setup characteristic',
+        !fwScan.some((u) => fwChars.includes(u)))
+} else if (fs.existsSync(NOTE)) {
+  // Not implemented yet: hold the client to the design note instead.
+  const note = fs.readFileSync(NOTE, 'utf8')
+  const spec = [...new Set([...note.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0]))].sort()
+  check('scan UUIDs documented (BLE_WIFI_SCAN.md)', spec.length === 2, spec.join(', '))
+  check('scan control UUID matches the note', SCAN_CONTROL_UUID === spec[0], spec[0])
+  check('scan result UUID matches the note', SCAN_RESULT_UUID === spec[1], spec[1])
+  console.log('NOTE  firmware has not implemented the scan extension yet (client degrades via NotFoundError)')
 }
 
 console.log(bad ? `\n${bad} FAILED` : `\ncontract matches firmware (${fwChars.length} characteristics, ${fwStatuses.length} statuses)`)

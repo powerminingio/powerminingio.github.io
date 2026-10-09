@@ -31,31 +31,32 @@ const phaseTone: Record<FlashPhase, PillTone> = {
 }
 
 /**
- * Progress for a flash. The phase is written out as well as coloured, and the
- * sentence underneath is the existing translated status string — the bar is
- * presentation layered over copy that already works in nine languages.
+ * A phase readout: coloured pill, optional percentage, and a bar that is
+ * determinate when we know how far along we are and indeterminate when we do
+ * not. Shared by the flasher and the BLE panel so both describe a long
+ * operation the same way — including to a screen reader, which is the part
+ * that is easy to get subtly wrong twice.
  */
-export function FlashProgress({
-  phase,
+export function ProgressReadout({
+  tone,
+  label,
   percent,
   status,
-  label,
+  showBar,
 }: {
-  phase: FlashPhase
+  tone: PillTone
+  /** The phase, already translated. */
+  label: string
   /** null while a phase is running with nothing to report. */
   percent: number | null
   /** The human sentence, already translated. */
   status: string
-  /** The phase, already translated. */
-  label: string
+  showBar: boolean
 }) {
-  const busy = phase !== 'idle' && phase !== 'done' && phase !== 'error'
-  const showBar = busy || phase === 'done'
-
   return (
     <div className="space-y-2 text-left">
       <div className="flex items-center justify-between gap-3">
-        <Pill tone={phaseTone[phase]}>{label}</Pill>
+        <Pill tone={tone}>{label}</Pill>
         {percent != null && (
           <span className="text-[13px] font-medium tabular-nums text-muted-foreground">{percent}%</span>
         )}
@@ -87,6 +88,36 @@ export function FlashProgress({
         </p>
       )}
     </div>
+  )
+}
+
+/**
+ * Progress for a flash. Maps the flasher's own phases onto ProgressReadout.
+ */
+export function FlashProgress({
+  phase,
+  percent,
+  status,
+  label,
+}: {
+  phase: FlashPhase
+  /** null while a phase is running with nothing to report. */
+  percent: number | null
+  /** The human sentence, already translated. */
+  status: string
+  /** The phase, already translated. */
+  label: string
+}) {
+  const busy = phase !== 'idle' && phase !== 'done' && phase !== 'error'
+
+  return (
+    <ProgressReadout
+      tone={phaseTone[phase]}
+      label={label}
+      percent={percent}
+      status={status}
+      showBar={busy || phase === 'done'}
+    />
   )
 }
 

@@ -119,6 +119,20 @@
     "scanFailed": "Tarama başlatılamadı",
     "resultsFresh": "Bulunan ağ: {{found}}.",
     "resultsAge": "Bulunan ağ: {{found}} ({{seconds}} sn önce).",
+    "choosingDevice": "Tarayıcı penceresinden madenci cihazınızı seçin…",
+    "readingSettings": "Mevcut Wi-Fi ve havuz ayarları okunuyor…",
+    "writingField": "{{name}} yazılıyor…",
+    "applying": "Cihazdan kaydetmesi isteniyor…",
+    "phase": {
+      "idle": "Bağlı değil",
+      "connecting": "Bağlanıyor",
+      "reading": "Ayarlar okunuyor",
+      "ready": "Bağlandı",
+      "saving": "Kaydediliyor",
+      "applied": "Kaydedildi",
+      "restarting": "Yeniden başlatılıyor",
+      "error": "Başarısız"
+    },
     "status": {
       "READY": "Hazır",
       "PENDING_APPLY": "Kaydediliyor...",

@@ -119,6 +119,20 @@
         "scanFailed": "Sam Qapbe'",
         "resultsFresh": "Wi-Fi Samlu': {{found}}.",
         "resultsAge": "Wi-Fi Samlu': {{found}} ({{seconds}} lup ret').",
+        "choosingDevice": "browser DaqDaq jan yIwIv…",
+        "readingSettings": "Wi-Fi pool nugh je laDlu'…",
+        "writingField": "{{name}} ghItlhlu'…",
+        "applying": "choq 'e' jan yItlhob…",
+        "phase": {
+            "idle": "chelbe'",
+            "connecting": "chel",
+            "reading": "nugh laD",
+            "ready": "chelpu'",
+            "saving": "choq",
+            "applied": "choqpu'",
+            "restarting": "taghqa'",
+            "error": "Qagh"
+        },
         "status": {
             "READY": "ghuHpu'",
             "PENDING_APPLY": "choq...",

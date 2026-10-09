@@ -119,6 +119,20 @@
     "scanFailed": "Não foi possível iniciar a busca",
     "resultsFresh": "Redes encontradas: {{found}}.",
     "resultsAge": "Redes encontradas: {{found}} (há {{seconds}}s).",
+    "choosingDevice": "Escolha seu minerador na janela do navegador…",
+    "readingSettings": "Lendo as configurações atuais de Wi-Fi e pool…",
+    "writingField": "Gravando {{name}}…",
+    "applying": "Pedindo ao minerador para salvar…",
+    "phase": {
+      "idle": "Não conectado",
+      "connecting": "Conectando",
+      "reading": "Lendo configurações",
+      "ready": "Conectado",
+      "saving": "Salvando",
+      "applied": "Salvo",
+      "restarting": "Reiniciando",
+      "error": "Falhou"
+    },
     "status": {
       "READY": "Pronto",
       "PENDING_APPLY": "Salvando...",

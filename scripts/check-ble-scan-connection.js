@@ -143,6 +143,24 @@ const check = (name, ok, detail = '') => {
     check('read loop is bounded', nets.length <= 32, `${nets.length} rows`)
   }
 
+  // 5. readAll reports progress: six reads is long enough on BLE that the
+  //    panel has to show how far along it is.
+  {
+    const stub = makeDevice({ pages: null, fieldValue: 'x' })
+    const { connectToMiner } = await load(stub)
+    const miner = await connectToMiner()
+
+    const seen = []
+    const values = await miner.readAll((done, total) => seen.push(`${done}/${total}`))
+    check('onProgress fires once per field', seen.length === 6, seen.join(' '))
+    check('progress ends at 6/6', seen[seen.length - 1] === '6/6', seen[seen.length - 1])
+    check('counts are monotonic', seen.every((s, i) => s === `${i + 1}/6`), seen.join(' '))
+    check('all six fields still resolve', Object.keys(values).length === 6)
+
+    const again = await miner.readAll()
+    check('readAll works with no callback', JSON.stringify(again) === JSON.stringify(values))
+  }
+
   console.log(bad ? `\n${bad} FAILED` : '\nall connection assertions passed')
   process.exit(bad ? 1 : 0)
 })()

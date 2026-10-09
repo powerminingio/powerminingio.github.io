@@ -119,6 +119,20 @@
     "scanFailed": "Не удалось запустить поиск",
     "resultsFresh": "Найдено сетей: {{found}}.",
     "resultsAge": "Найдено сетей: {{found}} ({{seconds}} с назад).",
+    "choosingDevice": "Выбери свой майнер в окне браузера…",
+    "readingSettings": "Читаем текущие настройки Wi-Fi и пула…",
+    "writingField": "Записываем: {{name}}…",
+    "applying": "Просим майнер сохранить…",
+    "phase": {
+      "idle": "Не подключено",
+      "connecting": "Подключение",
+      "reading": "Чтение настроек",
+      "ready": "Подключено",
+      "saving": "Сохранение",
+      "applied": "Сохранено",
+      "restarting": "Перезапуск",
+      "error": "Ошибка"
+    },
     "status": {
       "READY": "Готово",
       "PENDING_APPLY": "Сохранение...",

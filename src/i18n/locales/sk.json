@@ -119,6 +119,20 @@
     "scanFailed": "Hľadanie sa nepodarilo spustiť",
     "resultsFresh": "Nájdených sietí: {{found}}.",
     "resultsAge": "Nájdených sietí: {{found}} (pred {{seconds}} s).",
+    "choosingDevice": "Vyberte Váš miner v okne prehliadača…",
+    "readingSettings": "Načítavajú sa aktuálne nastavenia Wi-Fi a poolu…",
+    "writingField": "Zapisuje sa {{name}}…",
+    "applying": "Žiadame miner o uloženie…",
+    "phase": {
+      "idle": "Nepripojené",
+      "connecting": "Pripájanie",
+      "reading": "Načítanie nastavení",
+      "ready": "Pripojené",
+      "saving": "Ukladanie",
+      "applied": "Uložené",
+      "restarting": "Reštartuje sa",
+      "error": "Zlyhalo"
+    },
     "status": {
       "READY": "Pripravené",
       "PENDING_APPLY": "Ukladá sa...",

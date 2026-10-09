@@ -6,12 +6,15 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from './ui/button'
 import { Card, CardTitle, Field, Notice, Pill, type PillTone } from './ui/pm'
+import { ProgressReadout } from './ui/pm-flasher'
 import {
   FIELDS,
   FIELD_ORDER,
   FieldTooLongError,
+  classifyStatus,
   connectToMiner,
   hasBluetoothRadio,
+  type BlePhase,
   type FieldName,
   type FieldValues,
   type MinerConnection,
@@ -35,12 +38,19 @@ const SECRET: ReadonlySet<FieldName> = new Set<FieldName>(['wifiPassword', 'pool
 const inputClass =
   'flex min-h-[46px] w-full items-center rounded-xl border border-input bg-background/80 px-3 py-2 text-left text-sm text-foreground placeholder:text-muted-foreground/70 focus:shadow-focus focus:outline-none disabled:cursor-not-allowed disabled:bg-secondary disabled:text-muted-foreground disabled:opacity-50'
 
-function statusTone(status: string): PillTone {
-  if (status.startsWith('ERROR')) return 'danger'
-  if (status === 'APPLIED_RESTART_REQUIRED') return 'success'
-  if (status === 'READY' || status === '') return 'neutral'
-  return 'info'
+const phaseTone: Record<BlePhase, PillTone> = {
+  idle: 'neutral',
+  connecting: 'info',
+  reading: 'info',
+  ready: 'info',
+  saving: 'info',
+  applied: 'success',
+  restarting: 'info',
+  error: 'danger',
 }
+
+/** Phases that are actively doing something, so the bar should show. */
+const RUNNING: ReadonlySet<BlePhase> = new Set<BlePhase>(['connecting', 'reading', 'saving', 'restarting'])
 
 export default function BleConfigurator({
   step,
@@ -60,6 +70,11 @@ export default function BleConfigurator({
   // What the miner reported on connect, so Save writes only what changed.
   const [saved, setSaved] = useState<FieldValues>(EMPTY)
   const [status, setStatus] = useState('')
+  const [phase, setPhase] = useState<BlePhase>('idle')
+  // null while a phase is running with nothing countable to report.
+  const [percent, setPercent] = useState<number | null>(null)
+  /** Client-side sentence for the stretches where the firmware says nothing. */
+  const [activity, setActivity] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [revealed, setRevealed] = useState<FieldName[]>([])
@@ -84,6 +99,9 @@ export default function BleConfigurator({
     setValues(EMPTY)
     setSaved(EMPTY)
     setStatus('')
+    setPhase('idle')
+    setPercent(null)
+    setActivity('')
     setRevealed([])
     setCanScan(false)
     setScan(null)
@@ -96,12 +114,22 @@ export default function BleConfigurator({
   const handleConnect = async () => {
     setError('')
     setBusy(true)
+    setPhase('connecting')
+    setPercent(null)
+    setActivity(t('ble.choosingDevice'))
     try {
       const miner = await connectToMiner()
       connectionRef.current = miner
       // A RESTART always drops the link, so treat this as a normal ending.
       miner.onDisconnected(reset)
-      await miner.watchStatus(setStatus)
+      // The firmware's status drives the phase from here on, except while we
+      // are mid-read or mid-save, which the handlers own.
+      await miner.watchStatus((next) => {
+        setStatus(next)
+        setPhase((current) =>
+          current === 'reading' || current === 'saving' ? current : classifyStatus(next),
+        )
+      })
 
       setCanScan(miner.canScan)
       if (miner.canScan) {
@@ -115,15 +143,29 @@ export default function BleConfigurator({
         })
       }
 
-      const current = await miner.readAll()
+      setPhase('reading')
+      setPercent(0)
+      setActivity(t('ble.readingSettings'))
+      const current = await miner.readAll((done, total) =>
+        setPercent(Math.round((done / total) * 100)),
+      )
       setValues(current)
       setSaved(current)
       setDeviceName(miner.name)
+
+      setPhase(classifyStatus(status))
+      setPercent(null)
+      setActivity('')
     } catch (e) {
       // Dismissing the chooser rejects with NotFoundError; that is not an error.
       if (!(e instanceof DOMException && e.name === 'NotFoundError')) {
         setError(`${t('ble.connectFailed')}: ${e instanceof Error ? e.message : String(e)}`)
+        setPhase('error')
+      } else {
+        setPhase('idle')
       }
+      setPercent(null)
+      setActivity('')
       connectionRef.current = null
     } finally {
       setBusy(false)
@@ -140,22 +182,40 @@ export default function BleConfigurator({
     if (!miner) return
     setError('')
     setBusy(true)
+
+    // Only touched fields are written, so anything left alone keeps its
+    // current value on the miner. APPLY is the last step, which is why the
+    // denominator is changed + 1: the bar hits 100% when the miner has
+    // accepted the batch, not when the final write returns.
+    const changed = FIELD_ORDER.filter((field) => values[field] !== saved[field])
+    const steps = changed.length + 1
+    let step = 0
+
+    setPhase('saving')
+    setPercent(0)
     try {
-      // Only touched fields are written, so anything left alone keeps its
-      // current value on the miner.
-      for (const field of FIELD_ORDER) {
-        if (values[field] !== saved[field]) {
-          await miner.write(field, values[field])
-        }
+      for (const field of changed) {
+        setActivity(t('ble.writingField', { name: t(`ble.${field}`) }))
+        await miner.write(field, values[field])
+        step += 1
+        setPercent(Math.round((step / steps) * 100))
       }
+
+      setActivity(t('ble.applying'))
       await miner.sendCommand('APPLY')
+      setPercent(100)
+      setActivity('')
       setSaved(values)
+      // The firmware's APPLIED_RESTART_REQUIRED notification moves the phase on.
     } catch (e) {
       if (e instanceof FieldTooLongError) {
         setError(t('ble.tooLong', { field: t(`ble.${e.field}`), max: e.maxBytes }))
       } else {
         setError(`${t('ble.saveFailed')}: ${e instanceof Error ? e.message : String(e)}`)
       }
+      setPhase('error')
+      setPercent(null)
+      setActivity('')
     } finally {
       setBusy(false)
     }
@@ -164,6 +224,9 @@ export default function BleConfigurator({
   const handleRestart = async () => {
     setError('')
     setBusy(true)
+    setPhase('restarting')
+    setPercent(null)
+    setActivity('')
     try {
       await connectionRef.current?.sendCommand('RESTART')
     } catch (e) {
@@ -316,12 +379,25 @@ export default function BleConfigurator({
             </Button>
           )}
 
-          {status !== '' && (
-            <div className="flex justify-center">
-              {/* Unknown statuses show verbatim rather than as a missing key,
-                  so newer firmware never renders as blank. */}
-              <Pill tone={statusTone(status)}>{t(`ble.status.${status}`, { defaultValue: status })}</Pill>
-            </div>
+          {phase !== 'idle' && (
+            // Same component the flasher card uses, so both panels describe a
+            // long operation identically — including to a screen reader.
+            <ProgressReadout
+              tone={phaseTone[phase]}
+              label={t(`ble.phase.${phase}`)}
+              percent={percent}
+              // The firmware's own words when it has any, ours for the
+              // stretches it says nothing about. Unknown statuses show
+              // verbatim rather than as a missing key.
+              status={
+                activity !== ''
+                  ? activity
+                  : status !== ''
+                    ? t(`ble.status.${status}`, { defaultValue: status })
+                    : ''
+              }
+              showBar={RUNNING.has(phase) || phase === 'applied'}
+            />
           )}
         </>
       )}
