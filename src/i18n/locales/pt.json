@@ -9,8 +9,10 @@
     "instructions": "Instruções"
   },
   "hero": {
-    "title": "Grave Seu Minerador Diretamente da Web",
-    "description": "Conecte seu dispositivo, selecione seu modelo e versão da placa, e inicie a gravação imediatamente. Nenhuma configuração necessária.",
+    "title": "Configure seu minerador",
+    "description": "Grave o firmware e depois configure o Wi-Fi e seu pool — tudo pelo navegador.",
+    "flashTitle": "Gravar firmware",
+    "flashDescription": "Conecte seu minerador, escolha o firmware e grave. Nada para instalar.",
     "getStarted": "Começar",
     "connect": "Conectar",
     "disconnect": "Desconectar",

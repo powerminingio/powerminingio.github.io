@@ -9,8 +9,10 @@
         "instructions": "ra'ghom"
     },
     "hero": {
-        "title": "jan Daqvo' Web lo'",
-        "description": "yItlhob, yIwIv Segh 'ej 'ay' 'ej lo'choH Hoch. nIS pagh luch.",
+        "title": "jan yIchenmoH",
+        "description": "ngoq yIghItlhqa', ghIq Wi-Fi pool je yIchoH — Hoch browserDaq.",
+        "flashTitle": "ngoq ghItlhqa'",
+        "flashDescription": "jan yIchel, ngoq yIwIv 'ej yIghItlhqa'. nIS pagh luch.",
         "getStarted": "ghItlhchoH",
         "connect": "chel",
         "disconnect": "teq",

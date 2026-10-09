@@ -9,8 +9,10 @@
     "instructions": "Instrucțiuni"
   },
   "hero": {
-    "title": "Programează minerul tău direct de pe Internet",
-    "description": "Conectează dispozitivul, selectează modelul și versiunea plăcii și pornește programarea imediat. Nu este necesară instalare.",
+    "title": "Configurează-ți minerul",
+    "description": "Programează software-ul, apoi configurează Wi-Fi și pool-ul — totul din browser.",
+    "flashTitle": "Programează software",
+    "flashDescription": "Conectează minerul, alege software-ul și pornește programarea. Nimic de instalat.",
     "getStarted": "Pornește",
     "connect": "Conectează",
     "disconnect": "Deconecteză",

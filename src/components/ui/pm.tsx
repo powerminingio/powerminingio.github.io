@@ -32,16 +32,29 @@ export function CardTitle({
   id,
   children,
   aside,
+  step,
   className,
 }: {
   id?: string
   children: ReactNode
   aside?: ReactNode
+  /** Step number, shown as a chip before the title. */
+  step?: number
   className?: string
 }) {
   return (
     <div className={cn("flex items-start justify-between gap-3", className)}>
-      <h2 id={id} className="text-lg font-semibold tracking-[-0.3px] text-foreground">
+      <h2
+        id={id}
+        className="flex items-center gap-2.5 text-lg font-semibold tracking-[-0.3px] text-foreground"
+      >
+        {step != null && (
+          // Inside the h2 on purpose: the accessible name should read
+          // "1 Flash firmware", not drop the number as decoration.
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[13px] font-bold tabular-nums text-primary">
+            {step}
+          </span>
+        )}
         {children}
       </h2>
       {aside}

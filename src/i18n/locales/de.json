@@ -9,8 +9,10 @@
       "instructions": "Anleitung"
     },
     "hero": {
-      "title": "Direkt aus dem Browser deinen Miner flashen",
-      "description": "Verbinde deinen Miner, wähle dein Modell und die Board-Version aus und beginne sofort mit dem Flashen. Keine Installation erforderlich.",
+      "title": "Richte deinen Miner ein",
+      "description": "Flashe die Firmware und richte dann WLAN und deinen Pool ein — alles im Browser.",
+      "flashTitle": "Firmware flashen",
+      "flashDescription": "Verbinde deinen Miner, wähle die Firmware und flashe sie. Keine Installation nötig.",
       "getStarted": "Anleitung",
       "connect": "Verbinden",
       "disconnect": "Trennen",

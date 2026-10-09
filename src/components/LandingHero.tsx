@@ -8,7 +8,7 @@ import { md5 } from 'js-md5'
 import { useTranslation } from 'react-i18next'
 import Selector from './Selector'
 import device_data from './firmware_data.json'
-import { Card, Field, Notice, Pill } from './ui/pm'
+import { Card, CardTitle, Field, Notice, Pill } from './ui/pm'
 import { FlashProgress, MacTerm, ProgressRing, type FlashPhase } from './ui/pm-flasher'
 import { terminalTheme } from '@/lib/terminal-theme'
 import { detectPlatform, type PlatformInfo } from '@/lib/platform'
@@ -493,8 +493,23 @@ export default function LandingHero() {
       <div className="flex flex-col items-center gap-8 text-center">
         {heroHeading}
 
-        <div className="flex w-full flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center">
-          <Card glass className="w-full max-w-[420px] space-y-3">
+        {/* Pairs from md: 768 - 64 (sm:px-8) = 704 usable, and 2*330 + 24 gap
+            = 684. 340px would fit exactly and break on the first scrollbar.
+            From lg there is room for 400px, so the cards stop being pinched. */}
+        <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-start md:justify-center">
+          <Card
+            glass
+            labelledBy="flash-title"
+            className="w-full max-w-[330px] space-y-3 text-left lg:max-w-[400px]"
+          >
+            <CardTitle id="flash-title" step={1}>
+              {t('hero.flashTitle')}
+            </CardTitle>
+
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              {t('hero.flashDescription')}
+            </p>
+
             <Button
               className="w-full"
               onClick={isConnected ? handleDisconnect : handleConnect}
@@ -612,7 +627,7 @@ export default function LandingHero() {
             )}
           </Card>
 
-          <BleConfigurator available={platform.bluetooth} os={platform.os} />
+          <BleConfigurator step={2} available={platform.bluetooth} os={platform.os} />
         </div>
 
         {isLogging && (

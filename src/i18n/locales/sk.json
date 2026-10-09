@@ -9,8 +9,10 @@
     "instructions": "Inštrukcie"
   },
   "hero": {
-    "title": "Aktualizujte Váš Miner Priamo cez Web",
-    "description": "Pripojte Vaše zariadenie, vyberte model, verziu dosky, a spustite aktualizáciou. Bez potreby konfigurácie.",
+    "title": "Nastavte Váš miner",
+    "description": "Aktualizujte firmware a potom nastavte Wi-Fi a Váš pool — všetko v prehliadači.",
+    "flashTitle": "Aktualizácia firmware",
+    "flashDescription": "Pripojte miner, vyberte firmware a spustite aktualizáciu. Nič netreba inštalovať.",
     "getStarted": "Začíname",
     "connect": "Pripojiť",
     "disconnect": "Odpojiť",

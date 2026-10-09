@@ -9,8 +9,10 @@
         "instructions": "Istruzioni"
     },
     "hero": {
-        "title": "Flasha il tuo miner direttamente dal Web",
-        "description": "Collega il tuo dispositivo, seleziona il modello e la versione della scheda e inizia subito il flashing. Nessuna configurazione richiesta.",
+        "title": "Configura il tuo miner",
+        "description": "Flasha il firmware, poi imposta il Wi-Fi e il tuo pool — tutto dal browser.",
+        "flashTitle": "Flasha il firmware",
+        "flashDescription": "Collega il miner, scegli il firmware e flashalo. Niente da installare.",
         "getStarted": "Inizia",
         "connect": "Connetti",
         "disconnect": "Disconnetti",

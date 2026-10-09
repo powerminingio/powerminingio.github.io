@@ -42,7 +42,16 @@ function statusTone(status: string): PillTone {
   return 'info'
 }
 
-export default function BleConfigurator({ available, os }: { available: boolean; os: OS }) {
+export default function BleConfigurator({
+  step,
+  available,
+  os,
+}: {
+  /** Step number shown on the card heading, paired with the flasher card. */
+  step?: number
+  available: boolean
+  os: OS
+}) {
   const { t } = useTranslation()
 
   const connectionRef = useRef<MinerConnection | null>(null)
@@ -191,14 +200,14 @@ export default function BleConfigurator({ available, os }: { available: boolean;
               : t('ble.resultsFresh', { found: networks.length })
 
   const heading = (
-    <CardTitle id="ble-title">
+    <CardTitle id="ble-title" step={step}>
       {t('ble.title')}
     </CardTitle>
   )
 
   if (!available || !hasRadio) {
     return (
-      <Card glass labelledBy="ble-title" className="w-full max-w-[420px] space-y-3">
+      <Card glass labelledBy="ble-title" className="w-full max-w-[330px] space-y-3 lg:max-w-[400px]">
         {heading}
         <Notice tone="info" title={t(!available ? 'ble.unavailable' : 'ble.noRadio')}>
           {!available && os === 'linux' && <p className="mt-1">{t('ble.linuxHint')}</p>}
@@ -208,8 +217,12 @@ export default function BleConfigurator({ available, os }: { available: boolean;
   }
 
   return (
-    <Card glass labelledBy="ble-title" className="w-full max-w-[420px] space-y-3">
-      <CardTitle id="ble-title" aside={isConnected ? <Pill tone="success">{deviceName}</Pill> : undefined}>
+    <Card glass labelledBy="ble-title" className="w-full max-w-[330px] space-y-3 lg:max-w-[400px]">
+      <CardTitle
+        id="ble-title"
+        step={step}
+        aside={isConnected ? <Pill tone="success">{deviceName}</Pill> : undefined}
+      >
         {t('ble.title')}
       </CardTitle>
 

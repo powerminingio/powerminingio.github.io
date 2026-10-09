@@ -9,8 +9,10 @@
       "instructions": "Instructions"
     },
     "hero": {
-      "title": "Flash Your Miner Directly from the Web",
-      "description": "Connect your device, select your model and board version, and start flashing immediately. No setup required.",
+      "title": "Set up your miner",
+      "description": "Flash the firmware, then configure Wi-Fi and your pool — all from the browser.",
+      "flashTitle": "Flash firmware",
+      "flashDescription": "Connect your miner, pick the firmware and flash it. Nothing to install.",
       "getStarted": "Get Started",
       "connect": "Connect",
       "disconnect": "Disconnect",

@@ -9,8 +9,10 @@
     "instructions": "Kullanım"
   },
   "hero": {
-    "title": "Madenci Cihazınızı Tarayıcınızdan Formatlayın",
-    "description": "Cihazını bağla, model ve versiyon seç ve formatlamaya hemen başla. Bilgisayara ek kurulum gerektirmez.",
+    "title": "Madenci cihazınızı kurun",
+    "description": "Önce yazılımı yükleyin, sonra Wi-Fi ve havuzunuzu ayarlayın — hepsi tarayıcıdan.",
+    "flashTitle": "Yazılımı yükle",
+    "flashDescription": "Cihazınızı bağlayın, yazılımı seçin ve yükleyin. Kurulum gerekmez.",
     "getStarted": "Başlayın",
     "connect": "Bağla",
     "disconnect": "Bağlantıyı Kes",
