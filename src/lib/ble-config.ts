@@ -44,6 +44,84 @@ export const FIELD_ORDER: FieldName[] = [
 const STATUS_UUID = `${CHAR_BASE}ae`
 const COMMAND_UUID = `${CHAR_BASE}af`
 
+/*
+ * Wi-Fi scan, a PM-Miner extension — see pm-miner/docs/BLE_WIFI_SCAN.md.
+ *
+ * These live inside the same service, so requestDevice() needs no change: Web
+ * Bluetooth grants access per service, and a separate service would have had to
+ * be named in optionalServices or every access would throw SecurityError. The
+ * base is a fresh random v4 rather than a continuation of CHAR_BASE, so an
+ * ESP-Miner device that later adds a ninth characteristic cannot collide.
+ *
+ * Firmware without them is the normal case today: getCharacteristic() throws
+ * NotFoundError and the feature simply reports itself unavailable.
+ */
+const SCAN_CONTROL_UUID = '6a6a30b6-bfdb-48c8-a7ae-97d6d2a66d00'
+const SCAN_RESULT_UUID = '6a6a30b6-bfdb-48c8-a7ae-97d6d2a66d01'
+
+/** Upper bound on reads while paging results, against malformed firmware. */
+const MAX_SCAN_READS = 32
+
+export interface ScannedNetwork {
+  ssid: string
+  rssi: number
+  /** Numeric wifi_auth_mode_t; 0 is an open network. */
+  auth: number
+  channel: number
+}
+
+export interface ScanStatus {
+  /** IDLE | SCANNING | DONE | THROTTLED | UNAVAILABLE, or anything newer. */
+  state: string
+  count: number
+  /** Age of the cached result, or null when nothing has completed. */
+  ageSeconds: number | null
+}
+
+/** Parse the `state,count,age_s` line carried on the scan control characteristic. */
+export function parseScanState(line: string): ScanStatus {
+  const [state = '', count = '', age = ''] = line.trim().split(',')
+  const parsedCount = Number.parseInt(count, 10)
+  const parsedAge = Number.parseInt(age, 10)
+  return {
+    state: state.trim(),
+    count: Number.isFinite(parsedCount) && parsedCount > 0 ? parsedCount : 0,
+    ageSeconds: Number.isFinite(parsedAge) ? parsedAge : null,
+  }
+}
+
+/**
+ * Parse one `rssi,auth,channel,ssid` entry.
+ *
+ * Only the first three commas are separators — the SSID is last and unescaped,
+ * so a network called "Bob, Alice and Co" survives the round trip. Returns null
+ * for a malformed line or a hidden network, which scans with an empty SSID.
+ */
+export function parseNetworkEntry(line: string): ScannedNetwork | null {
+  const first = line.indexOf(',')
+  const second = line.indexOf(',', first + 1)
+  const third = line.indexOf(',', second + 1)
+  if (first < 0 || second < 0 || third < 0) return null
+
+  const rssi = Number.parseInt(line.slice(0, first), 10)
+  const auth = Number.parseInt(line.slice(first + 1, second), 10)
+  const channel = Number.parseInt(line.slice(second + 1, third), 10)
+  const ssid = line.slice(third + 1)
+
+  if (!Number.isFinite(rssi) || !Number.isFinite(auth) || !Number.isFinite(channel)) return null
+  if (ssid === '') return null
+  return { ssid, rssi, auth, channel }
+}
+
+/** Parse one read's worth of entries, dropping hidden and malformed rows. */
+export function parseNetworkEntries(text: string): ScannedNetwork[] {
+  return text
+    .split('\n')
+    .filter((line) => line !== '')
+    .map(parseNetworkEntry)
+    .filter((n): n is ScannedNetwork => n !== null)
+}
+
 export type Command = 'APPLY' | 'RESTART' | 'STATUS'
 
 /** Status values the firmware defines. Anything else is shown verbatim. */
@@ -72,6 +150,14 @@ export interface MinerConnection {
   sendCommand(command: Command): Promise<void>
   /** Subscribe to status; returns the current value immediately too. */
   watchStatus(onStatus: (status: string) => void): Promise<void>
+  /** Whether this firmware exposes the Wi-Fi scan extension. */
+  canScan: boolean
+  /** Ask the miner to start a scan. No-op when canScan is false. */
+  requestScan(): Promise<void>
+  /** Subscribe to scan state; seeded with the current value, as watchStatus is. */
+  watchScanState(onState: (status: ScanStatus) => void): Promise<void>
+  /** Page through the cached scan results. */
+  readNetworks(count: number): Promise<ScannedNetwork[]>
   onDisconnected(handler: () => void): void
   disconnect(): void
 }
@@ -135,6 +221,18 @@ export async function connectToMiner(): Promise<MinerConnection> {
   const status = await service.getCharacteristic(STATUS_UUID)
   const command = await service.getCharacteristic(COMMAND_UUID)
 
+  // Firmware without the scan extension throws NotFoundError here. That absence
+  // is the capability signal, so there is no version to negotiate.
+  let scanControl: BluetoothRemoteGATTCharacteristic | null = null
+  let scanResult: BluetoothRemoteGATTCharacteristic | null = null
+  try {
+    scanControl = await service.getCharacteristic(SCAN_CONTROL_UUID)
+    scanResult = await service.getCharacteristic(SCAN_RESULT_UUID)
+  } catch {
+    scanControl = null
+    scanResult = null
+  }
+
   return {
     name: device.name ?? '',
 
@@ -167,6 +265,42 @@ export async function connectToMiner(): Promise<MinerConnection> {
       await status.startNotifications()
       // Nothing is pushed until the value next changes, so seed it.
       onStatus(decode(await status.readValue()))
+    },
+
+    canScan: scanControl !== null && scanResult !== null,
+
+    async requestScan() {
+      await scanControl?.writeValue(encoder.encode('SCAN'))
+    },
+
+    async watchScanState(onState) {
+      if (!scanControl) return
+      scanControl.addEventListener('characteristicvaluechanged', (event) => {
+        const value = (event.target as BluetoothRemoteGATTCharacteristic).value
+        if (value) onState(parseScanState(decode(value)))
+      })
+      await scanControl.startNotifications()
+      onState(parseScanState(decode(await scanControl.readValue())))
+    },
+
+    async readNetworks(count) {
+      if (!scanResult || count <= 0) return []
+      const found: ScannedNetwork[] = []
+      let index = 0
+
+      for (let read = 0; read < MAX_SCAN_READS && index < count; read++) {
+        await scanResult.writeValue(Uint8Array.of(Math.min(index, 0xff)))
+        const text = decode(await scanResult.readValue())
+
+        // Advance by lines consumed, not by rows parsed: hidden and malformed
+        // entries are dropped but still occupy an index on the device.
+        const lines = text.split('\n').filter((line) => line !== '')
+        if (lines.length === 0) break
+
+        found.push(...parseNetworkEntries(text))
+        index += lines.length
+      }
+      return found
     },
 
     onDisconnected(handler) {

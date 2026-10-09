@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Bluetooth, Eye, EyeOff, RotateCw, Save } from 'lucide-react'
+import { Bluetooth, Eye, EyeOff, RadioTower, RotateCw, Save } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from './ui/button'
@@ -15,6 +15,8 @@ import {
   type FieldName,
   type FieldValues,
   type MinerConnection,
+  type ScanStatus,
+  type ScannedNetwork,
 } from '@/lib/ble-config'
 import type { OS } from '@/lib/platform'
 
@@ -53,6 +55,10 @@ export default function BleConfigurator({ available, os }: { available: boolean;
   const [error, setError] = useState('')
   const [revealed, setRevealed] = useState<FieldName[]>([])
   const [hasRadio, setHasRadio] = useState(true)
+  // Wi-Fi scan, present only on firmware carrying the extension.
+  const [canScan, setCanScan] = useState(false)
+  const [scan, setScan] = useState<ScanStatus | null>(null)
+  const [networks, setNetworks] = useState<ScannedNetwork[]>([])
 
   const isConnected = deviceName !== ''
 
@@ -70,6 +76,9 @@ export default function BleConfigurator({ available, os }: { available: boolean;
     setSaved(EMPTY)
     setStatus('')
     setRevealed([])
+    setCanScan(false)
+    setScan(null)
+    setNetworks([])
   }, [])
 
   // Drop the link if the card goes away mid-session.
@@ -84,6 +93,19 @@ export default function BleConfigurator({ available, os }: { available: boolean;
       // A RESTART always drops the link, so treat this as a normal ending.
       miner.onDisconnected(reset)
       await miner.watchStatus(setStatus)
+
+      setCanScan(miner.canScan)
+      if (miner.canScan) {
+        // Seeded with a read, so a cache warmed when the hotspot opened shows
+        // up immediately rather than after the first manual scan.
+        await miner.watchScanState((state) => {
+          setScan(state)
+          if (state.count > 0 && (state.state === 'DONE' || state.state === 'THROTTLED')) {
+            miner.readNetworks(state.count).then(setNetworks).catch(() => setNetworks([]))
+          }
+        })
+      }
+
       const current = await miner.readAll()
       setValues(current)
       setSaved(current)
@@ -142,8 +164,31 @@ export default function BleConfigurator({ available, os }: { available: boolean;
     }
   }
 
+  const handleScan = async () => {
+    setError('')
+    try {
+      await connectionRef.current?.requestScan()
+    } catch (e) {
+      setError(`${t('ble.scanFailed')}: ${e instanceof Error ? e.message : String(e)}`)
+    }
+  }
+
   const toggleReveal = (field: FieldName) =>
     setRevealed((prev) => (prev.includes(field) ? prev.filter((f) => f !== field) : [...prev, field]))
+
+  // One line under the SSID field: what the scan is doing, or how old the list is.
+  const scanHelp =
+    scan === null
+      ? undefined
+      : scan.state === 'SCANNING'
+        ? t('ble.scanning')
+        : scan.state === 'UNAVAILABLE'
+          ? t('ble.scanUnavailable')
+          : networks.length === 0
+            ? t('ble.noNetworks')
+            : scan.ageSeconds !== null && scan.ageSeconds > 0
+              ? t('ble.resultsAge', { found: networks.length, seconds: scan.ageSeconds })
+              : t('ble.resultsFresh', { found: networks.length })
 
   const heading = (
     <CardTitle id="ble-title">
@@ -186,8 +231,16 @@ export default function BleConfigurator({ available, os }: { available: boolean;
           {FIELD_ORDER.map((field) => {
             const secret = SECRET.has(field)
             const shown = revealed.includes(field)
+            // Only the SSID gets the scan affordance, and only where the
+            // firmware carries the extension.
+            const scannable = field === 'wifiSsid' && canScan
             return (
-              <Field key={field} label={t(`ble.${field}`)} htmlFor={`ble-${field}`}>
+              <Field
+                key={field}
+                label={t(`ble.${field}`)}
+                htmlFor={`ble-${field}`}
+                help={scannable ? scanHelp : undefined}
+              >
                 <div className="flex gap-2">
                   <input
                     id={`ble-${field}`}
@@ -198,6 +251,9 @@ export default function BleConfigurator({ available, os }: { available: boolean;
                     value={values[field]}
                     disabled={busy}
                     autoComplete="off"
+                    // Stays free text even with a list: a hidden network, or one
+                    // that did not answer this scan, still has to be typeable.
+                    list={scannable ? 'ble-ssid-options' : undefined}
                     onChange={(e) => setValues((v) => ({ ...v, [field]: e.target.value }))}
                   />
                   {secret && (
@@ -209,7 +265,28 @@ export default function BleConfigurator({ available, os }: { available: boolean;
                       {shown ? <EyeOff /> : <Eye />}
                     </Button>
                   )}
+                  {scannable && (
+                    <Button
+                      variant="outline"
+                      aria-label={t('ble.scan')}
+                      title={t('ble.scan')}
+                      onClick={handleScan}
+                      disabled={busy || scan?.state === 'SCANNING'}
+                    >
+                      <RadioTower />
+                    </Button>
+                  )}
                 </div>
+                {scannable && (
+                  <datalist id="ble-ssid-options">
+                    {networks.map((network) => (
+                      <option key={`${network.ssid}-${network.channel}`} value={network.ssid}>
+                        {network.rssi} dBm
+                        {network.auth === 0 ? ` \u00b7 ${t('ble.openNetwork')}` : ''}
+                      </option>
+                    ))}
+                  </datalist>
+                )}
               </Field>
             )
           })}

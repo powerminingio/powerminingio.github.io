@@ -49,6 +49,9 @@ const js = ts.transpileModule(src, {
 const mod = { exports: {} }
 new Function('module', 'exports', 'navigator', js)(mod, mod.exports, { bluetooth: {} })
 const { SERVICE_UUID, FIELDS, FIELD_ORDER, KNOWN_STATUSES } = mod.exports
+// Not exported, so read them back out of the source.
+const [SCAN_CONTROL_UUID, SCAN_RESULT_UUID] =
+  [...new Set([...src.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0]))].sort()
 
 let bad = 0
 const check = (name, ok, detail = '') => {
@@ -93,6 +96,29 @@ check('our writable field order matches firmware',
 const fwStatuses = [...hdr.matchAll(/SETUP_BLE_STATUS_\w+\s*=\s*"([A-Z_]+)"/g)].map((m) => m[1])
 const missing = fwStatuses.filter((s) => !KNOWN_STATUSES.includes(s))
 check(`all ${fwStatuses.length} firmware status strings are known`, missing.length === 0, missing.join(', '))
+
+// --- Wi-Fi scan extension (PM-specific; see pm-miner/docs/BLE_WIFI_SCAN.md) ---
+// Until the firmware implements it, the note is the only source of truth. Once
+// setup_ble_service.cpp carries these UUIDs, prefer them over the note.
+const NOTE = path.join(FW, 'docs', 'BLE_WIFI_SCAN.md')
+if (fs.existsSync(NOTE)) {
+  const note = fs.readFileSync(NOTE, 'utf8')
+  const inCpp = [...cpp.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0])
+  const spec = [...new Set([...note.matchAll(/6a6a30b6-[0-9a-f-]+/g)].map((m) => m[0]))].sort()
+  const source = inCpp.length ? 'setup_ble_service.cpp' : 'BLE_WIFI_SCAN.md'
+
+  check(`scan UUIDs documented (${source})`, spec.length === 2, spec.join(', '))
+  check('scan control UUID matches client', SCAN_CONTROL_UUID === spec[0], spec[0])
+  check('scan result UUID matches client', SCAN_RESULT_UUID === spec[1], spec[1])
+  check('scan UUIDs do not collide with the setup service', !spec.includes(fwService))
+  check('scan UUIDs do not extend the upstream char base',
+        !spec.some((u) => u.startsWith('beb5483e')))
+  if (inCpp.length) {
+    check('firmware implements both scan characteristics', new Set(inCpp).size === 2)
+  } else {
+    console.log('NOTE  firmware has not implemented the scan extension yet (client degrades via NotFoundError)')
+  }
+}
 
 console.log(bad ? `\n${bad} FAILED` : `\ncontract matches firmware (${fwChars.length} characteristics, ${fwStatuses.length} statuses)`)
 process.exit(bad ? 1 : 0)

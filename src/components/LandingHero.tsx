@@ -485,117 +485,119 @@ export default function LandingHero() {
       <div className="flex flex-col items-center gap-8 text-center">
         {heroHeading}
 
-        <Card glass className="w-full max-w-[420px] space-y-3">
-          <Button
-            className="w-full"
-            onClick={isConnected ? handleDisconnect : handleConnect}
-            disabled={isConnecting || isFlashing}
-          >
-            {isConnected ? t('hero.disconnect') : t('hero.connect')}
-            <Usb />
-          </Button>
+        <div className="flex w-full flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center">
+          <Card glass className="w-full max-w-[420px] space-y-3">
+            <Button
+              className="w-full"
+              onClick={isConnected ? handleDisconnect : handleConnect}
+              disabled={isConnecting || isFlashing}
+            >
+              {isConnected ? t('hero.disconnect') : t('hero.connect')}
+              <Usb />
+            </Button>
 
-          <Field label={t('hero.deviceLabel')} htmlFor="device">
-            <Selector
-              id="device"
-              placeholder={t('hero.selectDevice')}
-              values={devices.map(d => d.name)}
-              onValueChange={(value) => {
-                setSelectedDevice(value)
-                setSelectedBoardVersion('')
-                setSelectedFirmware('')
-              }}
-              disabled={isConnecting || isFlashing || !isConnected}
-            />
-          </Field>
-
-          {selectedDevice && hasBoards && (
-            <Field label={t('hero.boardLabel')} htmlFor="board">
+            <Field label={t('hero.deviceLabel')} htmlFor="device">
               <Selector
-                id="board"
-                placeholder={t('hero.selectBoard')}
-                value={selectedBoardVersion}
-                values={boards.map(b => b.name)}
+                id="device"
+                placeholder={t('hero.selectDevice')}
+                values={devices.map(d => d.name)}
                 onValueChange={(value) => {
-                  setSelectedBoardVersion(value)
+                  setSelectedDevice(value)
+                  setSelectedBoardVersion('')
                   setSelectedFirmware('')
                 }}
-                disabled={isConnecting || isFlashing}
+                disabled={isConnecting || isFlashing || !isConnected}
               />
             </Field>
-          )}
 
-          {selectedDevice && (!hasBoards || selectedBoardVersion) && (
-            <Field label={t('hero.firmwareLabel')} htmlFor="firmware">
-              <Selector
-                id="firmware"
-                placeholder={t('hero.selectFirmware')}
-                value={selectedFirmware}
-                values={localFirmwareOptions.map(f => f.version)}
-                onValueChange={setSelectedFirmware}
-                disabled={isConnecting || isFlashing}
+            {selectedDevice && hasBoards && (
+              <Field label={t('hero.boardLabel')} htmlFor="board">
+                <Selector
+                  id="board"
+                  placeholder={t('hero.selectBoard')}
+                  value={selectedBoardVersion}
+                  values={boards.map(b => b.name)}
+                  onValueChange={(value) => {
+                    setSelectedBoardVersion(value)
+                    setSelectedFirmware('')
+                  }}
+                  disabled={isConnecting || isFlashing}
+                />
+              </Field>
+            )}
+
+            {selectedDevice && (!hasBoards || selectedBoardVersion) && (
+              <Field label={t('hero.firmwareLabel')} htmlFor="firmware">
+                <Selector
+                  id="firmware"
+                  placeholder={t('hero.selectFirmware')}
+                  value={selectedFirmware}
+                  values={localFirmwareOptions.map(f => f.version)}
+                  onValueChange={setSelectedFirmware}
+                  disabled={isConnecting || isFlashing}
+                />
+              </Field>
+            )}
+
+            <div className="flex items-center gap-2 text-left">
+              <input
+                type="checkbox"
+                id="keepConfig"
+                className="pm-check"
+                checked={keepConfig}
+                onChange={handleKeepConfigToggle}
               />
-            </Field>
-          )}
+              <label htmlFor="keepConfig" className="cursor-pointer text-sm text-muted-foreground">
+                {t('hero.keepConfig')}
+              </label>
+            </div>
 
-          <div className="flex items-center gap-2 text-left">
-            <input
-              type="checkbox"
-              id="keepConfig"
-              className="pm-check"
-              checked={keepConfig}
-              onChange={handleKeepConfigToggle}
-            />
-            <label htmlFor="keepConfig" className="cursor-pointer text-sm text-muted-foreground">
-              {t('hero.keepConfig')}
-            </label>
-          </div>
-
-          <Button
-            className="w-full"
-            onClick={handleStartFlashing}
-            disabled={!selectedDevice || (hasBoards && !selectedBoardVersion) || !selectedFirmware || isConnecting || isFlashing || !isConnected}
-          >
-            {isFlashing ? t('hero.flashing') : t('hero.startFlashing')}
-            {isFlashing ? <ProgressRing percent={percent} title={status} /> : <Zap />}
-          </Button>
-
-          <div className="flex gap-2">
             <Button
-              className="flex-1"
-              variant="outline"
-              onClick={isLogging ? stopSerialLogging : startSerialLogging}
-              disabled={!isConnected || isFlashing}
+              className="w-full"
+              onClick={handleStartFlashing}
+              disabled={!selectedDevice || (hasBoards && !selectedBoardVersion) || !selectedFirmware || isConnecting || isFlashing || !isConnected}
             >
-              {isLogging ? t('hero.stopLogging') : t('hero.startLogging')}
-              <ComputerIcon />
+              {isFlashing ? t('hero.flashing') : t('hero.startFlashing')}
+              {isFlashing ? <ProgressRing percent={percent} title={status} /> : <Zap />}
             </Button>
-            <Button
-              className="flex-1"
-              variant="outline"
-              onClick={downloadLogs}
-              disabled={!hasLogs}
-            >
-              {t('hero.downloadLogs')}
-              <Download />
-            </Button>
-          </div>
 
-          <p className="text-[13px] leading-relaxed text-muted-foreground">
-            {t('hero.loggingDescription')}
-          </p>
+            <div className="flex gap-2">
+              <Button
+                className="flex-1"
+                variant="outline"
+                onClick={isLogging ? stopSerialLogging : startSerialLogging}
+                disabled={!isConnected || isFlashing}
+              >
+                {isLogging ? t('hero.stopLogging') : t('hero.startLogging')}
+                <ComputerIcon />
+              </Button>
+              <Button
+                className="flex-1"
+                variant="outline"
+                onClick={downloadLogs}
+                disabled={!hasLogs}
+              >
+                {t('hero.downloadLogs')}
+                <Download />
+              </Button>
+            </div>
 
-          {phase !== 'idle' && (
-            <FlashProgress
-              phase={phase}
-              percent={percent}
-              status={status}
-              label={t(`status.phase.${phase}`)}
-            />
-          )}
-        </Card>
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              {t('hero.loggingDescription')}
+            </p>
 
-        <BleConfigurator available={platform.bluetooth} os={platform.os} />
+            {phase !== 'idle' && (
+              <FlashProgress
+                phase={phase}
+                percent={percent}
+                status={status}
+                label={t(`status.phase.${phase}`)}
+              />
+            )}
+          </Card>
+
+          <BleConfigurator available={platform.bluetooth} os={platform.os} />
+        </div>
 
         {isLogging && (
           <MacTerm
