@@ -4,8 +4,12 @@
       "name": "Bitcube",
       "supported_firmware": [
         {
+          "version": "v0.2b",
+          "path": "firmware/pm_bitcube_v0.2b.bin"
+        },
+        {
           "version": "v0.1b",
-          "path": "firmware/pm_bitcube.bin"
+          "path": "firmware/pm_bitcube_v0.1b.bin"
         }
       ]
     }
