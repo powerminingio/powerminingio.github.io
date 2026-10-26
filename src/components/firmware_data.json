@@ -12,6 +12,15 @@
           "path": "firmware/pm_bitcube_v0.1b.bin"
         }
       ]
+    },
+    {
+      "name": "Bitcube BM1373",
+      "supported_firmware": [
+        {
+          "version": "v0.2b",
+          "path": "firmware/pm_bitcube_bm1373_v0.2b.bin"
+        }
+      ]
     }
   ]
 }
